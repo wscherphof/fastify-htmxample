@@ -13,6 +13,7 @@
     "vite": "^2.7.2"
   },
   "dependencies": {
-    "htmx.org": "^1.6.1"
+    "htmx.org": "^1.6.1",
+    "material-icons": "^1.10.4"
   }
 }
