@@ -1,5 +1,11 @@
-import './style.css'
+import './style.scss';
 import 'htmx.org/dist/htmx.js';
+import { MDCRipple } from '@material/ripple';
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.mdc-button')
+    .forEach((button) => new MDCRipple(button));
+});
 
 htmx.on("htmx:configRequest", function (evt) {
   if (location.host.startsWith("localhost") && evt.detail.path.startsWith("/")) {
@@ -11,4 +17,4 @@ htmx.on("htmx:configRequest", function (evt) {
 document.querySelector('#app').innerHTML = `
   <h1>Hello Vite!</h1>
   <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+`;
