@@ -7,15 +7,8 @@ module.exports = async function (fastify, opts) {
   // Place here your custom code!
 
   fastify.register(require('fastify-static'), {
+    // vite build
     root: path.join(__dirname, 'html/dist'),
-  });
-
-  fastify.register(require('fastify-cors'), {
-    origin: "http://localhost:3000",
-    methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'HX-Boosted', 'HX-Current-URL', 'HX-History-Restore-Request', 'HX-Prompt', 'HX-Request', 'HX-Target', 'HX-Trigger', 'HX-Trigger-Name'],
-    exposedHeaders: ['HX-Push', 'HX-Redirect', 'HX-Refresh', 'HX-Retarget', 'HX-Trigger', 'HX-Trigger-After-Swap', 'HX-Trigger-After-Settle'],
-    credentials: true,
   });
 
   fastify.register(require("point-of-view"), {

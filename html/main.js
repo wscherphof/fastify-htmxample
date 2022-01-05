@@ -2,8 +2,9 @@ import './style.css'
 import 'htmx.org/dist/htmx.js';
 
 htmx.on("htmx:configRequest", function (evt) {
-  if (location.host === "localhost:3000" && evt.detail.path.startsWith("/")) {
-    evt.detail.path = "http://localhost:3001" + evt.detail.path;
+  if (location.host.startsWith("localhost") && evt.detail.path.startsWith("/")) {
+    // vite dev server proxy to fastify
+    evt.detail.path = "/api" + evt.detail.path;
   }
 });
 

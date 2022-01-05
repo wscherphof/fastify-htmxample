@@ -28,7 +28,6 @@
     "fastify": "^3.0.0",
     "fastify-autoload": "^3.3.1",
     "fastify-cli": "^2.14.0",
-    "fastify-cors": "^6.0.2",
     "fastify-plugin": "^3.0.0",
     "fastify-sensible": "^3.1.0",
     "fastify-static": "^4.5.0",
