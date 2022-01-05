@@ -18,6 +18,13 @@ module.exports = async function (fastify, opts) {
     credentials: true,
   });
 
+  fastify.register(require("point-of-view"), {
+    engine: {
+      pug: require("pug"),
+    },
+    root: "./views",
+  });
+
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins

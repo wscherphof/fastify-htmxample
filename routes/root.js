@@ -5,10 +5,6 @@ module.exports = async function (fastify, opts) {
     return { root: true };
   });
   fastify.get('/clicked', async function (request, reply) {
-    return `
-        <button hx-get="/clicked" hx-swap="outerHTML">
-          Clicked
-        </button>
-    `;
+    return reply.view("clicked");
   });
 };
