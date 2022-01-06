@@ -9,13 +9,7 @@
 </head>
 
 <body>
-  <div id="app"></div>
-  <button class="foo-button mdc-button mdc-button--raised" hx-get="/clicked" hx-swap="innerHTML" hx-target="#foo-label">
-    <span class="mdc-button__ripple"></span>
-    <span class="mdc-button__focus-ring"></span>
-    <i class="material-icons mdc-button__icon" aria-hidden="true">bookmark</i>
-    <span class="mdc-button__label" id="foo-label">Click me</span>
-  </button>
+  <div id="app" hx-get="/" hx-trigger="load"></div>
   <script type="module" src="/main.js"></script>
 </body>
 

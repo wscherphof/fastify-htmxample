@@ -1,0 +1,27 @@
+include material/button
+-
+    const label = 'Click me'
+    const icon = 'bookmark'
+    const _ = `on click
+        increment :count
+        get me.querySelector('.label')
+        put 'Clicked: ' + :count into it
+    `
+p Text Button
++textButton(label)(_=_)
+| 
++textButton(label, icon)(_=_)
+| 
++textButton(label, { icon: icon, trailing: true })(_=_)
+p Outlined Button
++outlinedButton(label)(_=_)
+| 
++outlinedButton(label, icon)(_=_)
+| 
++outlinedButton(label, { icon: icon, trailing: true })(_=_)
+p Raised Button
++raisedButton(label)(_=_)
+| 
++raisedButton(label, icon)(_=_)
+| 
++raisedButton(label, { icon: icon, trailing: true })(_=_)

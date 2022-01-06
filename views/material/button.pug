@@ -1,0 +1,39 @@
+mixin mdc-button-icon(icon)
+    i(aria-hidden=true).material-icons.mdc-button__icon= icon
+
+mixin mdc-button(label, icon)
+    -
+        if (icon && !icon.icon) {
+            icon = { icon: icon }
+        }
+        icon = icon || {}
+        if (icon.icon) {
+            if (icon.trailing) {
+                icon.position = 'trailing'
+                icon.leading = false
+            } else {
+                icon.position = 'leading'
+                icon.leading = true
+                icon.trailing = false
+            }
+        }
+    .mdc-touch-target-wrapper
+        button(
+            class=icon.icon ? `mdc-button--icon-${icon.position}` : ''
+        )&attributes(attributes).mdc-button.mdc-button--touch
+            span.mdc-button__ripple
+            span.mdc-button__focus-ring
+            if icon.leading
+                +mdc-button-icon(icon.icon)
+            span.mdc-button__label.label= label
+            if icon.trailing
+                +mdc-button-icon(icon.icon)
+
+mixin textButton(label, icon)
+    +mdc-button(label, icon)()&attributes(attributes)
+
+mixin outlinedButton(label, icon)
+    +mdc-button(label, icon)()&attributes(attributes).mdc-button--outlined
+
+mixin raisedButton(label, icon)
+    +mdc-button(label, icon)()&attributes(attributes).mdc-button--raised
