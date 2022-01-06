@@ -1,13 +1,13 @@
 export default {
   build: {
-    sourcemap: true,
+    sourcemap: true
   },
   server: {
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
-};
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  }
+}

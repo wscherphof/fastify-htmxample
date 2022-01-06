@@ -8,15 +8,15 @@ module.exports = async function (fastify, opts) {
 
   fastify.register(require('fastify-static'), {
     // vite build
-    root: path.join(__dirname, 'html/dist'),
-  });
+    root: path.join(__dirname, 'html/dist')
+  })
 
-  fastify.register(require("point-of-view"), {
+  fastify.register(require('point-of-view'), {
     engine: {
-      pug: require("pug"),
+      pug: require('pug')
     },
-    root: "./views",
-  });
+    root: './views'
+  })
 
   // Do not touch the following lines
 
