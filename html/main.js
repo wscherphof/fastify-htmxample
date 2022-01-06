@@ -1,5 +1,5 @@
 import './style.scss'
-import 'htmx.org'
+import 'htmx.org' // htmx from or { htmx } from don't work
 import { MDCRipple } from '@material/ripple'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .forEach((button) => new MDCRipple(button))
 })
 
-htmx.on('htmx:configRequest', function (evt) {
+// standard(no-undef)
+htmx.on('htmx:configRequest', function (evt) { // eslint-disable-line
   if (window.location.host.startsWith('localhost') && evt.detail.path.startsWith('/')) {
     // vite dev server proxy to fastify
     evt.detail.path = '/api' + evt.detail.path
