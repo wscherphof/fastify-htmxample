@@ -1,5 +1,6 @@
-@use "@material/button/styles";
-@import 'material-icons/iconfont/material-icons.css';
+@use 'material-icons/iconfont/material-icons.css';
+@use "@material/button/styles" as button;
+@use "@material/icon-button/styles" as icon-button;
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

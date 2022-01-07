@@ -1,0 +1,44 @@
+//- icon is the material icon name
+    ariaLabel should be provided as well
+    The icon element gets an additional class "icon"
+
+mixin iconButton(icon, ariaLabel)
+    +mdc-icon-button(icon, ariaLabel)()&attributes(attributes)
+
+//- iconOff is the material icon name
+    pass on=true to start the button in on state (default is off)
+    The iconOff element gets an additional class "icon-off"
+    fires MDCIconButtonToggle:change with event.detail.isOn
+
+mixin iconToggleButton(icon, ariaLabel, iconOff, on)
+    +mdc-icon-button(icon, ariaLabel, iconOff, on)()&attributes(attributes)
+
+
+//- Internals, following:
+    https://github.com/material-components/material-components-web/tree/v13.0.0/packages/mdc-icon-button
+    and: https://github.com/material-components/material-components-web/commit/6f283f47dff464ac861c96e2f2c249f16f776dee
+
+mixin mdc-icon-button(icon, ariaLabel, iconOff, on)
+    -
+        const toggle = !!iconOff
+        const toggleAttributes = {}
+        if (toggle) {
+            if (on) {
+                toggleAttributes.class = 'mdc-icon-button--on'
+                toggleAttributes['aria-pressed'] = 'true'
+            } else {
+                toggleAttributes['aria-pressed'] = 'false'
+            }
+        }
+    .mdc-touch-target-wrapper
+        button(
+            aria-label=ariaLabel
+            toggle
+        )&attributes(attributes)&attributes(toggleAttributes).mdc-icon-button
+            .mdc-icon-button__ripple
+            if toggle
+                i.material-icons.mdc-icon-button__icon.mdc-icon-button__icon--on.icon= icon
+                i.material-icons.mdc-icon-button__icon.icon-off= iconOff
+            else
+                i.material-icons.icon= icon
+            .mdc-icon-button--touch

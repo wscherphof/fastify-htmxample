@@ -2,6 +2,7 @@ include material/button
 -
     const label = 'Click me'
     const icon = 'bookmark'
+    const iconOff = 'bookmark_border'
     const _ = `on click
         increment :count
         get me.querySelector('.label')
@@ -15,6 +16,14 @@ include material/button
 | 
 +unelevatedButton({ label, icon: { icon, trailing: true } })(_=_)
 | 
-+outlinedButton({ icon })(_=_)
++outlinedButton({ icon })
 | 
-+outlinedButton()(_=_)
++outlinedButton()
+
+include material/iconButton
+| 
++iconButton(icon, label)(_=`on click call alert('click')`)
+| 
++iconToggleButton(icon, label, iconOff)(_=`on MDCIconButtonToggle:change call alert('change on=' + event.detail.isOn)`)
+| 
++iconToggleButton(icon, label, iconOff, true)
