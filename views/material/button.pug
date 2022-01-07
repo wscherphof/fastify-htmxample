@@ -1,12 +1,36 @@
-mixin mdc-button-icon(icon)
-    i(aria-hidden=true).material-icons.mdc-button__icon.icon= icon
+//- options is either a string (the label), or an object with these properties:
+        - label (required) (use iconButton for buttons without labels)
+        - icon (optional): either a string (the material icon name),
+            or an object with these properties:
+            - icon (required)
+            - trailing=true (optional; default is: leading)
+    The label element gets an additional class "label"
+    The icon element gets an additional class "icon"
 
-mixin mdc-button(label, icon)
+mixin textButton(options)
+    +mdc-button(options)()&attributes(attributes)
+
+mixin outlinedButton(options)
+    +mdc-button(options)()&attributes(attributes).mdc-button--outlined
+
+mixin raisedButton(options)
+    +mdc-button(options)()&attributes(attributes).mdc-button--raised
+
+mixin unelevatedButton(options)
+    +mdc-button(options)()&attributes(attributes).mdc-button--unelevated
+
+
+//- Internals, following:
+    https://github.com/material-components/material-components-web/tree/master/packages/mdc-button
+
+mixin mdc-button(options)
     -
-        if (icon && !icon.icon) {
-            icon = { icon: icon }
-        }
-        icon = icon || {}
+        options = options || {}
+        const label = options.label ||
+            (typeof options == 'string' ? options : undefined)
+        const icon = options.icon ?
+            (options.icon.icon ? options.icon : { icon: options.icon }) :
+            {}
         if (icon.icon) {
             if (icon.trailing) {
                 icon.position = 'trailing'
@@ -25,18 +49,10 @@ mixin mdc-button(label, icon)
             span.mdc-button__focus-ring
             if icon.leading
                 +mdc-button-icon(icon.icon)
-            span.mdc-button__label.label= label
+            if label
+                span.mdc-button__label.label= label
             if icon.trailing
                 +mdc-button-icon(icon.icon)
 
-mixin textButton(label, icon)
-    +mdc-button(label, icon)()&attributes(attributes)
-
-mixin outlinedButton(label, icon)
-    +mdc-button(label, icon)()&attributes(attributes).mdc-button--outlined
-
-mixin raisedButton(label, icon)
-    +mdc-button(label, icon)()&attributes(attributes).mdc-button--raised
-
-mixin unelevatedButton(label, icon)
-    +mdc-button(label, icon)()&attributes(attributes).mdc-button--unelevated
+mixin mdc-button-icon(icon)
+    i(aria-hidden=true).material-icons.mdc-button__icon.icon= icon
