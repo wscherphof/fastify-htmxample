@@ -37,3 +37,6 @@ mixin outlinedButton(label, icon)
 
 mixin raisedButton(label, icon)
     +mdc-button(label, icon)()&attributes(attributes).mdc-button--raised
+
+mixin unelevatedButton(label, icon)
+    +mdc-button(label, icon)()&attributes(attributes).mdc-button--unelevated
