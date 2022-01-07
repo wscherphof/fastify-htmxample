@@ -6,6 +6,16 @@ const AutoLoad = require('fastify-autoload')
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
 
+  fastify.register(require('fastify-mongodb'), {
+    // force to close the mongodb connection when app stopped
+    // the default value is false
+    forceClose: true,
+
+    url: 'mongodb+srv://mongo:mongo@cluster0.wjlcx.mongodb.net/htmx?retryWrites=true&w=majority'
+  })
+
+  fastify.register(require('fastify-formbody'))
+
   fastify.register(require('fastify-static'), {
     // vite build
     root: path.join(__dirname, 'html/dist')

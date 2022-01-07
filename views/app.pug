@@ -1,29 +1,5 @@
 include material/button
--
-    const label = 'Click me'
-    const icon = 'bookmark'
-    const iconOff = 'bookmark_border'
-    const _ = `on click
-        increment :count
-        get me.querySelector('.label')
-        put 'Clicked: ' + :count into it
-    `
-+textButton(label)(_=_)
-| 
-+outlinedButton({ label })(_=_)
-| 
-+raisedButton({ label, icon })(_=_)
-| 
-+unelevatedButton({ label, icon: { icon, trailing: true } })(_=_)
-| 
-+outlinedButton({ icon })
-| 
-+outlinedButton()
-
-include material/iconButton
-| 
-+iconButton(icon, label)(_=`on click call alert('click')`)
-| 
-+iconToggleButton(icon, label, iconOff)(_=`on MDCIconButtonToggle:change call alert('change on=' + event.detail.isOn)`)
-| 
-+iconToggleButton(icon, label, iconOff, true)
++textButton('register')(
+    hx-get='/users/register'
+    hx-target='#app'
+)
