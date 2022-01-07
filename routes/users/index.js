@@ -25,11 +25,12 @@ module.exports = async function (fastify, opts) {
       }
     }
     try {
-      return await fastify.mailer.sendMail({
+      const info = await fastify.mailer.sendMail({
         to: email,
         subject: 'example',
         text: 'hello world !',
       })
+      return info
     } catch (error) {
       throw error
     }
