@@ -16,6 +16,10 @@ module.exports = async function (fastify, opts) {
 
   fastify.register(require('fastify-formbody'))
 
+  fastify.register(require('fastify-bcrypt'), {
+    saltWorkFactor: 12
+  })
+
   fastify.register(require('fastify-static'), {
     // vite build
     root: path.join(__dirname, 'html/dist')

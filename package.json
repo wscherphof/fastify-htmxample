@@ -27,6 +27,7 @@
   "dependencies": {
     "fastify": "^3.0.0",
     "fastify-autoload": "^3.3.1",
+    "fastify-bcrypt": "^1.0.0",
     "fastify-cli": "^2.14.0",
     "fastify-formbody": "^5.2.0",
     "fastify-mongodb": "^4.1.1",
