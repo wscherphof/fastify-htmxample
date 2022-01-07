@@ -20,6 +20,21 @@ module.exports = async function (fastify, opts) {
     saltWorkFactor: 12
   })
 
+  fastify.register(require('fastify-mailer'), {
+    defaults: { from: 'Wouter Scherphof <wouter.scherphof@outlook.com>' },
+    transport: {
+      host: 'smtp.office365.com',
+      port: 587,
+      auth: {
+        user: 'wouter.scherphof@outlook.com',
+        pass: process.env.OUTLOOK_PASSWORD,
+      },
+      tls: {
+        ciphers: 'SSLv3'
+      }
+    }
+  })
+
   fastify.register(require('fastify-static'), {
     // vite build
     root: path.join(__dirname, 'html/dist')
