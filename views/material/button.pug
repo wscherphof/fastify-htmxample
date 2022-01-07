@@ -27,7 +27,7 @@ mixin mdc-button(options)
     -
         options = options || {}
         const label = options.label ||
-            (typeof options == 'string' ? options : undefined)
+            (typeof options === 'string' ? options : undefined)
         const icon = options.icon ?
             (options.icon.icon ? options.icon : { icon: options.icon }) :
             {}
