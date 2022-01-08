@@ -1,14 +1,11 @@
 include ../material/textField
+include ../material/button
 
 form(
     hx-post='/users'
     hx-target='#app'
 )
-    p: +mdc-text-field('email', 'email', 'email')
-    p password
-        br
-        input(type='password', name='password')
-    p confirm password
-        br
-        input(type='password', name='password2')
-    p: button(type='submit') send
+    p: +filledTextField('email', 'email', 'email')
+    p: +filledTextField('password', 'password', 'password')
+    p: +filledTextField('password2', 'confirm password', 'password')
+    p: +outlinedButton('send')

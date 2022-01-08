@@ -1,12 +1,28 @@
-mixin mdc-text-field(name, label, type='text', value)
+mixin filledTextField(name, label, type='text', value)
     label.mdc-text-field.mdc-text-field--filled
         span.mdc-text-field__ripple
         - const labelId = Math.random()
-        span(id=labelId).mdc-floating-label.label= label
-        input(
-            type=type
-            name=name
-            value=value
-            aria-labelledby=labelId
-        ).mdc-text-field__input
+        +mdc-floating-label(label, labelId)
+        +mdc-text-field__input(name, type, value, labelId)
         span.mdc-line-ripple
+
+mixin outlinedTextField(name, label, type='text', value)
+    label.mdc-text-field.mdc-text-field--outlined
+        span.mdc-notched-outline
+            span.mdc-notched-outline__leading
+            span.mdc-notched-outline__notch
+                - const labelId = Math.random()
+                +mdc-floating-label(label, labelId)
+            span.mdc-notched-outline__trailing
+        +mdc-text-field__input(name, type, value, labelId)
+
+mixin mdc-floating-label(label, id)
+    span(id=id).mdc-floating-label.label= label
+
+mixin mdc-text-field__input(name, type, value, labelId)
+    input(
+        type=type
+        name=name
+        value=value
+        aria-labelledby=labelId
+    ).mdc-text-field__input
