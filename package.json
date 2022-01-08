@@ -29,6 +29,8 @@
     "fastify-autoload": "^3.3.1",
     "fastify-bcrypt": "^1.0.0",
     "fastify-cli": "^2.14.0",
+    "fastify-cookie": "^5.5.0",
+    "fastify-esso": "^1.2.3",
     "fastify-formbody": "^5.2.0",
     "fastify-mailer": "^2.2.0",
     "fastify-mongodb": "^4.1.1",

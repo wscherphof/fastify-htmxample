@@ -2,13 +2,13 @@ form(
     hx-post='/users'
     hx-target='#app'
 )
-    p name
+    p email
         br
-        input(type="email", name="email")
+        input(type='email', name='email')
     p password
         br
-        input(type="password", name="password")
+        input(type='password', name='password')
     p confirm password
         br
-        input(type="password", name="password2")
-    p: button(type="submit") send
+        input(type='password', name='password2')
+    p: button(type='submit') send

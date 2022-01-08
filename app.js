@@ -27,13 +27,23 @@ module.exports = async function (fastify, opts) {
       port: 587,
       auth: {
         user: 'wouter.scherphof@outlook.com',
-        pass: process.env.OUTLOOK_PASSWORD,
+        pass: process.env.OUTLOOK_PASSWORD
       },
       tls: {
         ciphers: 'SSLv3'
       }
     }
   })
+
+  fastify.register(require('fastify-cookie'))
+
+  process.env.ESSO_KEY = '87934yb378cty3734wvw47cv434qwb37tcgb378opyxbx74qtftb'
+  fastify.register(require('fastify-esso')({
+    secret: process.env.ESSO_KEY,
+    disable_headers: true,
+    disable_query: true,
+    disable_cookies: false
+  }))
 
   fastify.register(require('fastify-static'), {
     // vite build
