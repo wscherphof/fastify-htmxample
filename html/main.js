@@ -5,7 +5,7 @@ import { MDCRipple } from '@material/ripple'
 import { MDCIconButtonToggle } from '@material/icon-button'
 
 htmx.on('htmx:configRequest', function ({ detail }) { // eslint-disable-line
-  if (detail.path === '/') {
+  if (detail.path === '/') { // since <div id="app" hx-get="/" hx-trigger="load"></div>
     const { searchParams } = new URL(window.location.href)
     const path = searchParams.get('path')
     if (path) {
