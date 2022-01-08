@@ -14,18 +14,10 @@ module.exports = async function (fastify, opts) {
   })
 
   fastify.post('/', async function (request, reply) {
-    const { email, password, password2 } = request.body
-    if (password !== password2) {
-      badRequest("passwords don't match")
-    }
-    if (!password.length) {
-      badRequest('no password')
-    }
-
-    const hash = await fastify.bcrypt.hash('password')
+    const { email } = request.body
     const users = fastify.mongo.db.collection('users')
     try {
-      await users.insertOne({ email, password: hash })
+      await users.insertOne({ email })
     } catch (error) {
       if (error.code === 11000) {
         badRequest('email already taken')
@@ -41,28 +33,58 @@ module.exports = async function (fastify, opts) {
     const url = request.pathUrl(`/users/activate?token=${token}`)
     const mail = {
       to: email,
-      subject: 'Activate your account',
-      text: `Follow this link: ${url}`
+      subject: 'New password',
+      text: `Follow this link to create your new password: ${url}`
     }
     try {
       const { envelope } = await fastify.mailer.sendMail(mail)
-      return `Please follow the activation link in the email that ${envelope.from} sent to ${envelope.to[0]}`
+      return `Please follow the link in the email that ${envelope.from} sent to ${envelope.to[0]}`
     } catch (error) {
       throw error
     }
   })
 
-  fastify.get('/activate', async function (request, reply) {
-    const TIMEOUT = 60 * 1000 * 15 // 15 minutes
+  fastify.get('/password', async function (request, reply) {
     const { token } = request.query
     try {
       const { email, time } = JSON.parse(await decrypt(await key, token))
       if (new Date() - new Date(time) > TIMEOUT) {
         return badRequest('token has expired')
       }
-      return reply.view('users/activate', { email, token })
+      return reply.view('users/password', { email, token })
     } catch (error) {
       return badRequest(error)
+    }
+  })
+
+  fastify.post('/password', async function (request, reply) {
+    const { token, email, password, password2 } = request.body
+    if (password !== password2) {
+      return badRequest("passwords don't match")
+    }
+    if (!password.length) {
+      return badRequest('no password')
+    }
+
+    try {
+      const { email, time } = JSON.parse(await decrypt(await key, token))
+      if (email !== request.body.email) {
+        return badRequest("token doesn't match email")
+      }
+      const TIMEOUT = 60 * 1000 * 15 // 15 minutes
+      if (new Date() - new Date(time) > TIMEOUT) {
+        return badRequest('token has expired')
+      }
+    } catch (error) {
+      return badRequest(error)
+    }
+
+    const hash = await fastify.bcrypt.hash('password')
+    const users = fastify.mongo.db.collection('users')
+    try {
+      await users.updateOne({ email }, { $set: { password: hash } })
+    } catch (error) {
+      throw error
     }
   })
 
