@@ -1,10 +1,10 @@
+include ../material/textField
+
 form(
     hx-post='/users'
     hx-target='#app'
 )
-    p email
-        br
-        input(type='email', name='email')
+    p: +mdc-text-field('email', 'email', 'email')
     p password
         br
         input(type='password', name='password')

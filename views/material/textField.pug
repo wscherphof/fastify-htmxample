@@ -1,0 +1,12 @@
+mixin mdc-text-field(name, label, type='text', value)
+    label.mdc-text-field.mdc-text-field--filled
+        span.mdc-text-field__ripple
+        - const labelId = Math.random()
+        span(id=labelId).mdc-floating-label.label= label
+        input(
+            type=type
+            name=name
+            value=value
+            aria-labelledby=labelId
+        ).mdc-text-field__input
+        span.mdc-line-ripple
