@@ -1,5 +1,13 @@
 include material/button
-+textButton('register')(
-    hx-get='/users/register'
-    hx-target='#app'
-)
+
+if authenticated
+    Welcome
+else
+    +textButton('register')(
+        hx-get='/users/register'
+        hx-target='#app'
+    )
+    +raisedButton('login')(
+        hx-get='/users/authenticate'
+        hx-target='#app'
+    )

@@ -3,7 +3,7 @@ mixin filledTextField(name, label, type='text', value)
         span.mdc-text-field__ripple
         - const labelId = Math.random()
         +mdc-floating-label(label, labelId)
-        +mdc-text-field__input(name, type, value, labelId)
+        +mdc-text-field__input(name, type, value, labelId)()&attributes(attributes)
         span.mdc-line-ripple
 
 mixin outlinedTextField(name, label, type='text', value)
@@ -14,7 +14,7 @@ mixin outlinedTextField(name, label, type='text', value)
                 - const labelId = Math.random()
                 +mdc-floating-label(label, labelId)
             span.mdc-notched-outline__trailing
-        +mdc-text-field__input(name, type, value, labelId)
+        +mdc-text-field__input(name, type, value, labelId)()&attributes(attributes)
 
 mixin mdc-floating-label(label, id)
     span(id=id).mdc-floating-label.label= label

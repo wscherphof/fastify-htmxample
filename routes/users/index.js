@@ -20,7 +20,7 @@ module.exports = async function (fastify, opts) {
       await users.insertOne({ email })
     } catch (error) {
       if (error.code === 11000) {
-        badRequest('email already taken')
+        return badRequest('email already taken')
       } else {
         throw error
       }
@@ -30,7 +30,7 @@ module.exports = async function (fastify, opts) {
       email,
       time: new Date()
     }))
-    const url = request.pathUrl(`/users/activate?token=${token}`)
+    const url = request.pathUrl(`/users/password?token=${token}`)
     const mail = {
       to: email,
       subject: 'New password',
@@ -45,12 +45,10 @@ module.exports = async function (fastify, opts) {
   })
 
   fastify.get('/password', async function (request, reply) {
+    reply.header('HX-Push', request.pathUrl('/users/password'))
     const { token } = request.query
     try {
-      const { email, time } = JSON.parse(await decrypt(await key, token))
-      if (new Date() - new Date(time) > TIMEOUT) {
-        return badRequest('token has expired')
-      }
+      const { email } = JSON.parse(await decrypt(await key, token))
       return reply.view('users/password', { email, token })
     } catch (error) {
       return badRequest(error)
@@ -79,10 +77,32 @@ module.exports = async function (fastify, opts) {
       return badRequest(error)
     }
 
-    const hash = await fastify.bcrypt.hash('password')
+    const hash = await fastify.bcrypt.hash(password)
     const users = fastify.mongo.db.collection('users')
     try {
       await users.updateOne({ email }, { $set: { password: hash } })
+    } catch (error) {
+      throw error
+    }
+    return reply.view('app', { authenticated: true })
+  })
+
+  fastify.get('/authenticate', async function (request, reply) {
+    reply.header('HX-Push', request.pathUrl('/users/authenticate'))
+    return reply.view('users/authenticate')
+  })
+
+  fastify.post('/authenticate', async function (request, reply) {
+    const { email, password } = request.body
+    const hash = await fastify.bcrypt.hash(password)
+    const users = fastify.mongo.db.collection('users')
+    try {
+      const user = await users.findOne({ email, password: hash })
+      if (user) {
+        return reply.view('app', { authenticated: true })
+      } else {
+        throw fastify.httpErrors.conflict('user/password not found')
+      }
     } catch (error) {
       throw error
     }

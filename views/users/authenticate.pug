@@ -1,0 +1,16 @@
+include ../material/textField
+include ../material/button
+
+form(
+    hx-post='/users/authenticate'
+    hx-target='#app'
+)
+    p: +filledTextField('email', 'email', 'email')
+    p: +filledTextField('password', 'password', 'password')
+    p
+        //- +textButton('new password')(
+        //-     hx-get='/users/password-change'
+        //-     hx-target='#app'
+        //- )
+        //- | 
+        +raisedButton('send')

@@ -1,9 +1,0 @@
-form(
-    hx-post='/users/activate'
-    hx-target='#app'
-)
-    p email
-        br
-        input(type='email', name='email' value=email disabled)
-        input(type='hidden', name='token' value=token)
-    p: button(type='submit') send
