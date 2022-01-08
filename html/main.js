@@ -6,8 +6,8 @@ import { MDCIconButtonToggle } from '@material/icon-button'
 
 htmx.on('htmx:configRequest', function ({ detail }) { // eslint-disable-line
   if (detail.path === '/') {
-    const url = new URL(window.location.href)
-    const path = url.searchParams.get('path')
+    const { searchParams } = new URL(window.location.href)
+    const path = searchParams.get('path')
     if (path) {
       detail.path = decodeURIComponent(path)
     }
@@ -18,13 +18,13 @@ htmx.on('htmx:configRequest', function ({ detail }) { // eslint-disable-line
   }
 })
 
-const material = {}
-material.initButton = (element) => {
+htmx.on('htmx:load', function ({ detail }) { // eslint-disable-line
+  const { elt } = detail;
   ['mdc-button', 'mdc-icon-button'].forEach((buttonClass) => {
-    if (element.classList.contains(buttonClass)) {
-      init(element)
+    if (elt.classList.contains(buttonClass)) {
+      init(elt)
     }
-    element.querySelectorAll('.' + buttonClass).forEach((button) => {
+    elt.querySelectorAll('.' + buttonClass).forEach((button) => {
       init(button)
     })
     function init(button) {
@@ -40,8 +40,4 @@ material.initButton = (element) => {
       }
     }
   })
-}
-
-htmx.on('htmx:load', function ({ detail }) { // eslint-disable-line
-  material.initButton(detail.elt)
 })

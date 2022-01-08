@@ -9,6 +9,7 @@ const key = scryptPromise('3t78cby324897b3t978ct673tb673t7890bt578b', '98474b478
 
 module.exports = async function (fastify, opts) {
   fastify.get('/register', async function (request, reply) {
+    reply.header('HX-Push', request.pathUrl('/users/register'))
     return reply.view('users/register')
   })
 
@@ -37,13 +38,11 @@ module.exports = async function (fastify, opts) {
       email,
       time: new Date()
     }))
-    const url = new URL(request.headers.referer)
-    const path = `/users/activate?token=${token}`
-    const link = `${url.origin}${url.pathname}?path=${encodeURIComponent(path)}`
+    const url = request.pathUrl(`/users/activate?token=${token}`)
     const mail = {
       to: email,
       subject: 'Activate your account',
-      text: `Follow this link: ${link}`
+      text: `Follow this link: ${url}`
     }
     try {
       const { envelope } = await fastify.mailer.sendMail(mail)
