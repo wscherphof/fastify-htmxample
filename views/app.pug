@@ -1,7 +1,7 @@
 include material/button
 
 if authenticated
-    Welcome
+    p Welcome
 else
     +textButton('register')(
         hx-get='/users/register'

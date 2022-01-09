@@ -8,9 +8,9 @@ form(
     p: +filledTextField('email', 'email', 'email')
     p: +filledTextField('password', 'password', 'password')
     p
-        //- +textButton('new password')(
-        //-     hx-get='/users/password-change'
-        //-     hx-target='#app'
-        //- )
-        //- | 
+        +textButton('new password')(
+            hx-get='/users/passwordchange'
+            hx-target='#app'
+        )
+        | 
         +raisedButton('send')

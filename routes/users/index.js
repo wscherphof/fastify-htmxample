@@ -1,12 +1,5 @@
 'use strict'
 
-const { scrypt } = require('crypto')
-const { promisify } = require('util')
-const scryptPromise = promisify(scrypt)
-// FIXME: dependency on package internals
-const { encrypt, decrypt } = require('fastify-esso/lib/utils.js')
-const key = scryptPromise('3t78cby324897b3t978ct673tb673t7890bt578b', '98474b478v346v7436v7', 32)
-
 module.exports = async function (fastify, opts) {
   fastify.get('/register', async function (request, reply) {
     reply.header('HX-Push', request.pathUrl('/users/register'))
@@ -25,8 +18,11 @@ module.exports = async function (fastify, opts) {
         throw error
       }
     }
+    return await mailPassword(request, email)
+  })
 
-    const token = await encrypt(await key, JSON.stringify({
+  async function mailPassword(request, email) {
+    const token = await fastify.crypto.encrypt(JSON.stringify({
       email,
       time: new Date()
     }))
@@ -42,13 +38,33 @@ module.exports = async function (fastify, opts) {
     } catch (error) {
       throw error
     }
+  }
+
+  fastify.get('/passwordchange', async function (request, reply) {
+    reply.header('HX-Push', request.pathUrl('/users/passwordchange'))
+    return reply.view('users/passwordchange')
+  })
+
+  fastify.post('/passwordchange', async function (request, reply) {
+    const { email } = request.body
+    const users = fastify.mongo.db.collection('users')
+    try {
+      const user = await users.findOne({ email })
+      if (user) {
+        return await mailPassword(request, email)
+      } else {
+        throw fastify.httpErrors.conflict('user not found')
+      }
+    } catch (error) {
+      throw error
+    }
   })
 
   fastify.get('/password', async function (request, reply) {
-    reply.header('HX-Push', request.pathUrl('/users/password'))
     const { token } = request.query
     try {
-      const { email } = JSON.parse(await decrypt(await key, token))
+      const { email } = JSON.parse(await fastify.crypto.decrypt(token))
+      reply.header('HX-Push', request.pathUrl('/users/password'))
       return reply.view('users/password', { email, token })
     } catch (error) {
       return badRequest(error)
@@ -65,7 +81,7 @@ module.exports = async function (fastify, opts) {
     }
 
     try {
-      const { email, time } = JSON.parse(await decrypt(await key, token))
+      const { email, time } = JSON.parse(await fastify.crypto.decrypt(token))
       if (email !== request.body.email) {
         return badRequest("token doesn't match email")
       }
@@ -77,14 +93,14 @@ module.exports = async function (fastify, opts) {
       return badRequest(error)
     }
 
-    const hash = await fastify.bcrypt.hash(password)
+    const hash = await fastify.crypto.hash(password)
     const users = fastify.mongo.db.collection('users')
     try {
       await users.updateOne({ email }, { $set: { password: hash } })
     } catch (error) {
       throw error
     }
-    return reply.view('app', { authenticated: true })
+    return reply.redirect('/')
   })
 
   fastify.get('/authenticate', async function (request, reply) {
@@ -94,12 +110,12 @@ module.exports = async function (fastify, opts) {
 
   fastify.post('/authenticate', async function (request, reply) {
     const { email, password } = request.body
-    const hash = await fastify.bcrypt.hash(password)
+    const hash = await fastify.crypto.hash(password)
     const users = fastify.mongo.db.collection('users')
     try {
       const user = await users.findOne({ email, password: hash })
       if (user) {
-        return reply.view('app', { authenticated: true })
+        return reply.redirect('/')
       } else {
         throw fastify.httpErrors.conflict('user/password not found')
       }

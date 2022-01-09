@@ -16,10 +16,6 @@ module.exports = async function (fastify, opts) {
 
   fastify.register(require('fastify-formbody'))
 
-  fastify.register(require('fastify-bcrypt'), {
-    saltWorkFactor: 12
-  })
-
   fastify.register(require('fastify-mailer'), {
     defaults: { from: 'Wouter Scherphof <wouter.scherphof@outlook.com>' },
     transport: {
