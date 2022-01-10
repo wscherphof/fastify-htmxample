@@ -2,9 +2,6 @@
 
 module.exports = async function (fastify, opts) {
   fastify.get('/signup', async function (request, reply) {
-    request.authorization()
-    console.log(fastify.user)
-    console.log(fastify.crypto)
     return reply.view('users/signup')
   })
 

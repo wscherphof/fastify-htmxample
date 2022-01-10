@@ -32,8 +32,7 @@ async function encrypt(key, data) {
       }
     });
     cipher.on('end', () => {
-      // iv in hex format will always have LEN characters
-      resolve(iv.toString('hex') + encrypted);
+      resolve([iv.toString('hex'), encrypted].join(':'));
     });
     cipher.on('error', reject);
 
@@ -50,14 +49,12 @@ async function encrypt(key, data) {
 * @returns { Promise<string> }
 */
 async function decrypt(key, data) {
-  if (!data || data.length < LEN || data.length % 2 !== 0) // iv in hex format will always have 32 characters
-    throw new Error('Invalid data');
-
-  const iv = Buffer.from(data.substring(0, LEN), 'hex');
-  const encrypted = data.substring(LEN, data.length);
-
-  const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
-
+  const [iv, encrypted] = data.split(':')
+  const decipher = crypto.createDecipheriv(
+    'aes-256-cbc',
+    key,
+    Buffer.from(iv, 'hex')
+  );
   return new Promise((resolve, reject) => {
     let chunk;
     let decrypted = '';
@@ -66,7 +63,9 @@ async function decrypt(key, data) {
         decrypted += chunk.toString('utf8');
       }
     });
-    decipher.on('end', () => resolve(JSON.parse(decrypted)));
+    decipher.on('end', () => resolve(
+      JSON.parse(decrypted)
+    ));
     decipher.on('error', reject);
 
     decipher.write(encrypted, 'hex');
@@ -75,33 +74,25 @@ async function decrypt(key, data) {
 }
 
 async function plugin(fastify, opts) {
-  let _conf
-  async function conf() {
-    if (_conf) {
-      return _conf
-    }
-    const collection = await fastify.mongo.db.collection('conf')
-    let conf = await collection.findOne()
-    if (!conf) {
-      conf = {
-        secret: (await randomBytes(LEN)).toString('hex'),
-        salt: (await randomBytes(LEN)).toString('hex')
-      }
-      await collection.insertOne(conf)
-    }
-    let { secret, salt } = conf;
-    secret = Buffer.from(secret, 'hex')
-    salt = Buffer.from(salt, 'hex')
-    const key = await scrypt(secret, salt, LEN)
-    _conf = { key, salt }
-    return _conf
+  async function random() {
+    return randomBytes(LEN)
   }
-
+  async function key() {
+    const collection = await fastify.mongo.db.collection('conf')
+    const conf = await collection.findOne()
+    if (conf) {
+      return conf.key.buffer
+    } else {
+      const key = await scrypt(await random(), await random(), LEN)
+      await collection.insertOne({ key })
+      return key
+    }
+  }
   fastify.decorate('crypto', {
     hash: async (password) => {
-      const salt = (await conf()).salt // Buffer
-      const derivedKey = await scrypt(password, salt, LEN) // Buffer
-      return { salt, derivedKey }
+      const salt = await random()
+      const derivedKey = await scrypt(password, salt, LEN)
+      return { salt, derivedKey } // 2 x Buffer
     },
     verify: async (hash, password) => {
       const { salt, derivedKey } = hash // 2 x MonetDB Binary
@@ -111,10 +102,10 @@ async function plugin(fastify, opts) {
       )
     },
     encrypt: async (data) => {
-      return encrypt((await conf()).key, data)
+      return encrypt(await key(), data)
     },
     decrypt: async (data) => {
-      return decrypt((await conf()).key, data)
+      return decrypt(await key(), data)
     },
   })
 }
