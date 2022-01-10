@@ -1,8 +1,11 @@
 'use strict'
 
 module.exports = async function (fastify, opts) {
-  fastify.get('/register', async function (request, reply) {
-    return reply.view('users/register')
+  fastify.get('/signup', async function (request, reply) {
+    request.authorization()
+    console.log(fastify.user)
+    console.log(fastify.crypto)
+    return reply.view('users/signup')
   })
 
   fastify.post('/', async function (request, reply) {
@@ -21,10 +24,10 @@ module.exports = async function (fastify, opts) {
   })
 
   async function mailPassword(request, email) {
-    const token = await fastify.crypto.encrypt(JSON.stringify({
+    const token = await fastify.crypto.encrypt({
       email,
       time: new Date()
-    }))
+    })
     const { protocol, hostname } = request
     const url = `${protocol}://${hostname}/users/password?token=${token}`
     const mail = {
@@ -62,7 +65,7 @@ module.exports = async function (fastify, opts) {
   fastify.get('/password', async function (request, reply) {
     const { token } = request.query
     try {
-      const { email } = JSON.parse(await fastify.crypto.decrypt(token))
+      const { email } = await fastify.crypto.decrypt(token)
       return reply.view('users/password', { email, token })
     } catch (error) {
       return badRequest(error)
@@ -79,7 +82,7 @@ module.exports = async function (fastify, opts) {
     }
 
     try {
-      const { email, time } = JSON.parse(await fastify.crypto.decrypt(token))
+      const { email, time } = await fastify.crypto.decrypt(token)
       if (email !== request.body.email) {
         return badRequest("token doesn't match email")
       }
@@ -98,33 +101,40 @@ module.exports = async function (fastify, opts) {
     } catch (error) {
       throw error
     }
-    return login(fastify, reply, email)
+    return login(fastify, request, reply, email)
   })
 
-  async function login(fastify, reply, email) {
-    const authorization = await fastify.crypto.encrypt(JSON.stringify({
+  async function signIn(fastify, request, reply, email) {
+    const authorization = await fastify.crypto.encrypt({
       email
-    }))
+    })
     reply.setCookie('Authorization', authorization, {
       path: '/',
-      expires: new Date(), // no session cookie
-      maxAge: 60 * 60 * 24 // seconds; takes precedence over expires
+      maxAge: 60 * 60 * 24, // seconds
+      httpOnly: true,
+      secure: !request.hostname.startsWith('localhost')
     })
     reply.header('HX-Redirect', '/')
     return 'redirect'
   }
 
-  fastify.get('/authenticate', async function (request, reply) {
-    return reply.view('users/authenticate')
+  fastify.post('/signout', async function (request, reply) {
+    reply.clearCookie('Authorization')
+    reply.header('HX-Redirect', '/')
+    return 'redirect'
   })
 
-  fastify.post('/authenticate', async function (request, reply) {
+  fastify.get('/signin', async function (request, reply) {
+    return reply.view('users/signin')
+  })
+
+  fastify.post('/signin', async function (request, reply) {
     const { email, password } = request.body
     const users = fastify.mongo.db.collection('users')
     try {
       const user = await users.findOne({ email })
       if (user && await fastify.crypto.verify(user.password, password)) {
-        return login(fastify, reply, email)
+        return signIn(fastify, request, reply, email)
       } else {
         throw fastify.httpErrors.conflict('user/password not found')
       }

@@ -20,10 +20,9 @@ const LEN = 32
  * @returns { Promise<string> }
  */
 async function encrypt(key, data) {
+  data = JSON.stringify(data)
   const iv = await randomBytes(16);
-
   const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
-
   return new Promise((resolve, reject) => {
     let encrypted = '';
     cipher.on('readable', () => {
@@ -33,7 +32,7 @@ async function encrypt(key, data) {
       }
     });
     cipher.on('end', () => {
-      // iv in hex format will always have 32 characters
+      // iv in hex format will always have LEN characters
       resolve(iv.toString('hex') + encrypted);
     });
     cipher.on('error', reject);
@@ -51,11 +50,11 @@ async function encrypt(key, data) {
 * @returns { Promise<string> }
 */
 async function decrypt(key, data) {
-  if (!data || data.length < 32 || data.length % 2 !== 0) // iv in hex format will always have 32 characters
+  if (!data || data.length < LEN || data.length % 2 !== 0) // iv in hex format will always have 32 characters
     throw new Error('Invalid data');
 
-  const iv = Buffer.from(data.substring(0, 32), 'hex');
-  const encrypted = data.substring(32, data.length);
+  const iv = Buffer.from(data.substring(0, LEN), 'hex');
+  const encrypted = data.substring(LEN, data.length);
 
   const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
 
@@ -67,7 +66,7 @@ async function decrypt(key, data) {
         decrypted += chunk.toString('utf8');
       }
     });
-    decipher.on('end', () => resolve(decrypted));
+    decipher.on('end', () => resolve(JSON.parse(decrypted)));
     decipher.on('error', reject);
 
     decipher.write(encrypted, 'hex');
@@ -75,7 +74,7 @@ async function decrypt(key, data) {
   });
 }
 
-module.exports = fp(async function (fastify, opts) {
+async function plugin(fastify, opts) {
   let _conf
   async function conf() {
     if (_conf) {
@@ -119,4 +118,6 @@ module.exports = fp(async function (fastify, opts) {
       return decrypt((await conf()).key, data)
     },
   })
-})
+}
+
+module.exports = fp(plugin, { name: 'crypto' })

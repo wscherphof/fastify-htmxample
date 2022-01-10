@@ -7,6 +7,11 @@ const fs = require('fs')
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
 
+  fastify.register(require('fastify-static'), {
+    // vite build
+    root: path.join(__dirname, 'html/dist')
+  })
+
   fastify.addHook('onRequest', (request, reply, done) => {
     const file = request.url.match(/\.\w+$/)
     const fromMe = request.headers['referer'] && request.headers['referer']
@@ -20,6 +25,13 @@ module.exports = async function (fastify, opts) {
     done()
   })
 
+  fastify.register(require('point-of-view'), {
+    engine: {
+      pug: require('pug')
+    },
+    root: './views'
+  })
+
   fastify.register(require('fastify-mongodb'), {
     // force to close the mongodb connection when app stopped
     // the default value is false
@@ -27,8 +39,6 @@ module.exports = async function (fastify, opts) {
 
     url: 'mongodb+srv://mongo:mongo@cluster0.wjlcx.mongodb.net/htmx?retryWrites=true&w=majority'
   })
-
-  fastify.register(require('fastify-formbody'))
 
   fastify.register(require('fastify-mailer'), {
     defaults: { from: 'Wouter Scherphof <wouter.scherphof@outlook.com>' },
@@ -45,19 +55,9 @@ module.exports = async function (fastify, opts) {
     }
   })
 
+  fastify.register(require('fastify-formbody'))
+
   fastify.register(require('fastify-cookie'))
-
-  fastify.register(require('fastify-static'), {
-    // vite build
-    root: path.join(__dirname, 'html/dist')
-  })
-
-  fastify.register(require('point-of-view'), {
-    engine: {
-      pug: require('pug')
-    },
-    root: './views'
-  })
 
   // Do not touch the following lines
 

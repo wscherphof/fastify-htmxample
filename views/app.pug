@@ -1,15 +1,22 @@
 include material/button
 
-if authenticated
-    p Welcome
+if user
+    p Welcome #{user.email.split('@')[0]}
+    p
+        +textButton('logout')(
+            hx-post='/users/signout'
+            hx-target='#app'
+            hx-push-url='true'
+        )
 else
-    +textButton('register')(
-        hx-get='/users/register'
-        hx-target='#app'
-        hx-push-url='true'
-    )
-    +raisedButton('login')(
-        hx-get='/users/authenticate'
-        hx-target='#app'
-        hx-push-url='true'
-    )
+    p
+        +textButton('register')(
+            hx-get='/users/signup'
+            hx-target='#app'
+            hx-push-url='true'
+        )
+        +raisedButton('login')(
+            hx-get='/users/signin'
+            hx-target='#app'
+            hx-push-url='true'
+        )
