@@ -98,9 +98,21 @@ module.exports = async function (fastify, opts) {
     } catch (error) {
       throw error
     }
+    return login(fastify, reply, email)
+  })
+
+  async function login(fastify, reply, email) {
+    const authorization = await fastify.crypto.encrypt(JSON.stringify({
+      email
+    }))
+    reply.setCookie('Authorization', authorization, {
+      path: '/',
+      expires: new Date(), // no session cookie
+      maxAge: 60 * 60 * 24 // seconds; takes precedence over expires
+    })
     reply.header('HX-Redirect', '/')
     return 'redirect'
-  })
+  }
 
   fastify.get('/authenticate', async function (request, reply) {
     return reply.view('users/authenticate')
@@ -112,8 +124,7 @@ module.exports = async function (fastify, opts) {
     try {
       const user = await users.findOne({ email })
       if (user && await fastify.crypto.verify(user.password, password)) {
-        reply.header('HX-Redirect', '/')
-        return 'redirect'
+        return login(fastify, reply, email)
       } else {
         throw fastify.httpErrors.conflict('user/password not found')
       }
