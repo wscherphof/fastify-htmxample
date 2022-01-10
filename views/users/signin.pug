@@ -2,7 +2,7 @@ include ../material/textField
 include ../material/button
 
 form(
-    hx-post='/users/authenticate'
+    hx-post='/users/signin'
     hx-target='#app'
 )
     p: +filledTextField('email', 'email', 'email')
