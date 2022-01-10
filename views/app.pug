@@ -6,8 +6,10 @@ else
     +textButton('register')(
         hx-get='/users/register'
         hx-target='#app'
+        hx-push-url='true'
     )
     +raisedButton('login')(
         hx-get='/users/authenticate'
         hx-target='#app'
+        hx-push-url='true'
     )

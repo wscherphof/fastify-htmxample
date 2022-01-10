@@ -11,6 +11,7 @@ form(
         +textButton('new password')(
             hx-get='/users/passwordchange'
             hx-target='#app'
+            hx-push-url='true'
         )
         | 
         +raisedButton('send')

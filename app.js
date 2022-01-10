@@ -2,9 +2,23 @@
 
 const path = require('path')
 const AutoLoad = require('fastify-autoload')
+const fs = require('fs')
 
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
+
+  fastify.addHook('onRequest', (request, reply, done) => {
+    const file = request.url.match(/\.\w+$/)
+    const fromMe = request.headers['referer'] && request.headers['referer']
+      .startsWith(`${request.protocol}://${request.hostname}`)
+    if (!file && (!fromMe || request.headers['history-restore-request'])) {
+      const index = path.resolve(process.cwd(), 'html', 'dist', 'index.html')
+      const stream = fs.createReadStream(index, 'utf8')
+      reply.header('Content-Type', 'text/html')
+      reply.send(stream)
+    }
+    done()
+  })
 
   fastify.register(require('fastify-mongodb'), {
     // force to close the mongodb connection when app stopped

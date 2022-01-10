@@ -2,7 +2,6 @@
 
 module.exports = async function (fastify, opts) {
   fastify.get('/register', async function (request, reply) {
-    reply.header('HX-Push', request.pathUrl('/users/register'))
     return reply.view('users/register')
   })
 
@@ -41,7 +40,6 @@ module.exports = async function (fastify, opts) {
   }
 
   fastify.get('/passwordchange', async function (request, reply) {
-    reply.header('HX-Push', request.pathUrl('/users/passwordchange'))
     return reply.view('users/passwordchange')
   })
 
@@ -64,7 +62,6 @@ module.exports = async function (fastify, opts) {
     const { token } = request.query
     try {
       const { email } = JSON.parse(await fastify.crypto.decrypt(token))
-      reply.header('HX-Push', request.pathUrl('/users/password'))
       return reply.view('users/password', { email, token })
     } catch (error) {
       return badRequest(error)
@@ -104,7 +101,6 @@ module.exports = async function (fastify, opts) {
   })
 
   fastify.get('/authenticate', async function (request, reply) {
-    reply.header('HX-Push', request.pathUrl('/users/authenticate'))
     return reply.view('users/authenticate')
   })
 
