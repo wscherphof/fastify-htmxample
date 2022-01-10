@@ -97,7 +97,8 @@ module.exports = async function (fastify, opts) {
     } catch (error) {
       throw error
     }
-    return reply.redirect('/')
+    reply.header('HX-Redirect', '/')
+    return 'redirect'
   })
 
   fastify.get('/authenticate', async function (request, reply) {
@@ -111,7 +112,8 @@ module.exports = async function (fastify, opts) {
     try {
       const user = await users.findOne({ email, password: hash })
       if (user) {
-        return reply.redirect('/')
+        reply.header('HX-Redirect', '/')
+        return 'redirect'
       } else {
         throw fastify.httpErrors.conflict('user/password not found')
       }

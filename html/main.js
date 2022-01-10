@@ -6,7 +6,6 @@ import { MDCIconButtonToggle } from '@material/icon-button'
 import { MDCTextField } from '@material/textfield';
 
 htmx.on('htmx:configRequest', function ({ detail }) { // eslint-disable-line
-  console.log(detail)
   // <div id="app" hx-get="/app" hx-trigger="load"></div>
   if (detail.path === '/app' && window.location.pathname !== '/') {
     detail.path = window.location.pathname
