@@ -25,10 +25,11 @@ module.exports = async function (fastify, opts) {
       email,
       time: new Date()
     }))
-    const url = request.pathUrl(`/users/password?token=${token}`)
+    const { protocol, hostname } = request
+    const url = `${protocol}://${hostname}/users/password?token=${token}`
     const mail = {
       to: email,
-      subject: 'New password',
+      subject: 'Instructions for creating your new password',
       text: `Follow this link to create your new password: ${url}`
     }
     try {
@@ -107,11 +108,10 @@ module.exports = async function (fastify, opts) {
 
   fastify.post('/authenticate', async function (request, reply) {
     const { email, password } = request.body
-    const hash = await fastify.crypto.hash(password)
     const users = fastify.mongo.db.collection('users')
     try {
-      const user = await users.findOne({ email, password: hash })
-      if (user) {
+      const user = await users.findOne({ email })
+      if (user && await fastify.crypto.verify(user.password, password)) {
         reply.header('HX-Redirect', '/')
         return 'redirect'
       } else {

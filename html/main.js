@@ -6,11 +6,12 @@ import { MDCIconButtonToggle } from '@material/icon-button'
 import { MDCTextField } from '@material/textfield';
 
 htmx.on('htmx:configRequest', function ({ detail }) { // eslint-disable-line
+  const { pathname, host, search } = window.location
   // <div id="app" hx-get="/app" hx-trigger="load"></div>
-  if (detail.path === '/app' && window.location.pathname !== '/') {
-    detail.path = window.location.pathname
+  if (detail.path === '/app' && pathname !== '/') {
+    detail.path = pathname + search
   }
-  if (window.location.host.startsWith('localhost:3001') && detail.path.startsWith('/')) {
+  if (host.startsWith('localhost:3001') && detail.path.startsWith('/')) {
     // vite dev server proxy to fastify
     detail.path = '/api' + detail.path
   }
