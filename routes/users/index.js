@@ -101,7 +101,7 @@ module.exports = async function (fastify, opts) {
     } catch (error) {
       throw error
     }
-    return login(fastify, request, reply, email)
+    return signIn(fastify, request, reply, email)
   })
 
   async function signIn(fastify, request, reply, email) {
