@@ -1,8 +1,8 @@
-include ../material/textField
-include ../material/button
+include ../../material/textField
+include ../../material/button
 
 form(
-    hx-post='/users/passwordchange'
+    hx-post='/users/password/change'
     hx-target='#app'
 )
     p: +filledTextField('email', 'email', 'email')

@@ -43,11 +43,11 @@ module.exports = async function (fastify, opts) {
     }
   }
 
-  fastify.get('/passwordchange', async function (request, reply) {
-    return reply.view('users/passwordchange')
+  fastify.get('/password/change', async function (request, reply) {
+    return reply.view('users/password/change')
   })
 
-  fastify.post('/passwordchange', async function (request, reply) {
+  fastify.post('/password/change', async function (request, reply) {
     const { email } = request.body
     const users = fastify.mongo.db.collection('users')
     try {
@@ -66,7 +66,7 @@ module.exports = async function (fastify, opts) {
     const { token } = request.query
     try {
       const { email } = await fastify.crypto.decrypt(token)
-      return reply.view('users/password', { email, token })
+      return reply.view('users/password/index', { email, token })
     } catch (error) {
       return badRequest(error)
     }

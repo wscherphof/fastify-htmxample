@@ -9,7 +9,7 @@ form(
     p: +filledTextField('password', 'password', 'password')
     p
         +textButton('new password')(
-            hx-get='/users/passwordchange'
+            hx-get='/users/password/change'
             hx-target='#app'
             hx-push-url='true'
         )
