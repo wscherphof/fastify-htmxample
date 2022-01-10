@@ -7,6 +7,10 @@ const fs = require('fs')
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
 
+  fastify.register(require('fastify-formbody'))
+
+  fastify.register(require('fastify-cookie'))
+
   fastify.register(require('fastify-static'), {
     // vite build
     root: path.join(__dirname, 'html/dist')
@@ -54,10 +58,6 @@ module.exports = async function (fastify, opts) {
       }
     }
   })
-
-  fastify.register(require('fastify-formbody'))
-
-  fastify.register(require('fastify-cookie'))
 
   // Do not touch the following lines
 
