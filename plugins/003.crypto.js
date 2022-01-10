@@ -99,17 +99,16 @@ async function plugin(fastify, opts) {
 
   fastify.decorate('crypto', {
     hash: async (password) => {
-      const salt = (await conf()).salt
-      const derivedKey = await scrypt(password, salt, LEN)
-      return `${salt.toString('hex')}:${derivedKey.toString('hex')}`
+      const salt = (await conf()).salt // Buffer
+      const derivedKey = await scrypt(password, salt, LEN) // Buffer
+      return { salt, derivedKey }
     },
     verify: async (hash, password) => {
-      hash = hash.toString('hex')
-      const [saltString, keyString] = hash.split(':')
-      const salt = Buffer.from(saltString, 'hex')
-      const key = Buffer.from(keyString, 'hex')
-      const derivedKey = await scrypt(password, salt, LEN)
-      return timingSafeEqual(key, derivedKey)
+      const { salt, derivedKey } = hash // 2 x MonetDB Binary
+      return timingSafeEqual(
+        await scrypt(password, salt.buffer, LEN),
+        derivedKey.buffer
+      )
     },
     encrypt: async (data) => {
       return encrypt((await conf()).key, data)
