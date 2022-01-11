@@ -7,14 +7,12 @@ const fp = require('fastify-plugin')
 
 async function plugin(fastify, opts) {
 
-  function authorised(method) {
+  function authorised(method, enforce) {
     return function (path, options, handler) {
       if (typeof options === 'function') {
         handler = options
         options = {}
       }
-      const userMandatory = !(options.authorizationOptional === true)
-      delete options.authorizationOptional
       fastify[method](path, options, async function userHandler(request, reply) {
         async function authorization() {
           const authorization = request.cookies['Authorization']
@@ -24,27 +22,28 @@ async function plugin(fastify, opts) {
             return null
           }
         }
-        if (userMandatory) {
-          try {
-            const { email } = await authorization()
-          } catch (error) {
-            return unauthorized()
-          }
-        }
-        return handler(request, reply, authorization)
-        function unauthorized() {
-          throw fastify.httpErrors.unauthorized('please login')
+        if (enforce && !(await authorization())) {
+          return fastify.httpErrors.unauthorized('please login')
+        } else {
+          return handler(request, reply, authorization)
         }
       })
     }
   }
 
   fastify.decorate('authorised', {
-    get: authorised('get'),
-    push: authorised('push'),
-    post: authorised('post'),
-    delete: authorised('delete'),
-    patch: authorised('patch')
+    get: authorised('get', true),
+    push: authorised('push', true),
+    post: authorised('post', true),
+    delete: authorised('delete', true),
+    patch: authorised('patch', true),
+    optional: {
+      get: authorised('get'),
+      push: authorised('push'),
+      post: authorised('post'),
+      delete: authorised('delete'),
+      patch: authorised('patch'),
+    }
   })
 
   fastify.decorateReply('signIn', async function signIn(data, options = {}) {

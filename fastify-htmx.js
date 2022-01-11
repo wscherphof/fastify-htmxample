@@ -2,6 +2,7 @@
 
 const fp = require('fastify-plugin')
 const path = require('path')
+const fs = require('fs')
 
 // the use of fastify-plugin is required to be able
 // to export the decorators to the outer scope

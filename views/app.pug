@@ -3,6 +3,12 @@ include material/button
 if user
     p Welcome #{user.email.split('@')[0]}
     p
+        +textButton('unveil')(
+            hx-get='/secret'
+            hx-target='#app'
+            hx-push-url='true'
+        )
+    p
         +textButton('logout')(
             hx-post='/users/signout'
             hx-target='#app'
