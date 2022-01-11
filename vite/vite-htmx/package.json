@@ -1,0 +1,21 @@
+{
+  "name": "vite-htmx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wouter Scherphof",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@material/button": "^13.0.0",
+    "@material/icon-button": "^13.0.0",
+    "@material/textfield": "^13.0.0",
+    "htmx.org": "^1.6.1",
+    "material-icons": "^1.10.5"
+  },
+  "devDependencies": {
+    "sass": "^1.47.0"
+  }
+}

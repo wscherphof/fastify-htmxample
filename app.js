@@ -10,8 +10,6 @@ module.exports = async function (fastify, opts) {
     errorHandler: false
   })
 
-  fastify.register(require('fastify-cookie'))
-
   fastify.register(require('./fastify-crypto'))
 
   fastify.register(require('./fastify-auth'))

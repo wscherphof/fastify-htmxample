@@ -1,0 +1,17 @@
+{
+  "name": "fastify-htmx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wouter Scherphof",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "fastify-plugin": "^3.0.0",
+    "fastify-static": "^4.5.0",
+    "point-of-view": "^5.0.0",
+    "pug": "^3.0.2"
+  }
+}

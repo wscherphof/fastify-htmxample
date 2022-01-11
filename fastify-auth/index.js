@@ -7,6 +7,8 @@ const fp = require('fastify-plugin')
 
 async function plugin(fastify, opts) {
 
+  fastify.register(require('fastify-cookie'))
+
   function auth(method, enforce) {
     return function (path, options, handler) {
       if (typeof options === 'function') {
@@ -67,7 +69,6 @@ module.exports = fp(plugin, {
   name: 'fastify-auth',
   dependencies: [
     'fastify-crypto',
-    'fastify-cookie',
     'fastify-sensible'
   ]
 })
