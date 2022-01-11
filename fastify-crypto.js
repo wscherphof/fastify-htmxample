@@ -110,4 +110,4 @@ async function plugin(fastify, opts) {
   })
 }
 
-module.exports = fp(plugin, { name: 'crypto' })
+module.exports = fp(plugin, { name: 'fastify-crypto' })

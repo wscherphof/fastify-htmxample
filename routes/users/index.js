@@ -98,25 +98,19 @@ module.exports = async function (fastify, opts) {
     } catch (error) {
       throw error
     }
-    return signIn(fastify, request, reply, email)
+    return signIn(request, reply, { email })
   })
 
-  async function signIn(fastify, request, reply, email) {
-    const authorization = await fastify.crypto.encrypt({
-      email
-    })
-    reply.setCookie('Authorization', authorization, {
-      path: '/',
-      maxAge: 60 * 60 * 24, // seconds
-      httpOnly: true,
+  async function signIn(request, reply, data) {
+    await reply.signIn(data, {
       secure: !request.hostname.startsWith('localhost')
     })
-    return redirect(reply, '/')
+    return reply.hxRedirect('/')
   }
 
   fastify.post('/signout', async function (request, reply) {
-    reply.clearCookie('Authorization')
-    return redirect(reply, '/')
+    reply.signOut()
+    return reply.hxRedirect('/')
   })
 
   fastify.get('/signin', async function (request, reply) {
@@ -129,7 +123,7 @@ module.exports = async function (fastify, opts) {
     try {
       const user = await users.findOne({ email })
       if (user && await fastify.crypto.verify(user.password, password)) {
-        return signIn(fastify, request, reply, email)
+        return signIn(request, reply, { email })
       } else {
         throw fastify.httpErrors.conflict('user/password not found')
       }
@@ -137,11 +131,6 @@ module.exports = async function (fastify, opts) {
       throw error
     }
   })
-
-  function redirect(reply, path) {
-    reply.header('HX-Redirect', path)
-    return 'redirect'
-  }
 
   function badRequest(message) {
     throw fastify.httpErrors.badRequest(message)
