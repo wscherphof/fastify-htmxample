@@ -7,11 +7,16 @@ const fs = require('fs')
 // the use of fastify-plugin is required to be able
 // to export the decorators to the outer scope
 
-async function plugin(fastify, opts) {
+async function plugin(fastify, options = {}) {
+  const defaults = {
+    dist: path.resolve(process.cwd(), 'vite', 'dist'),
+    views: './views'
+  }
+  options = Object.assign(defaults, options)
 
   // serve the vite dist as the root
   fastify.register(require('fastify-static'), {
-    root: path.join(__dirname, 'vite/dist')
+    root: options.dist
   })
 
   // serve the full page HTML when not Ajax
@@ -21,7 +26,7 @@ async function plugin(fastify, opts) {
     const hxRequest = headers['hx-request']
     const hxHistoryRestoreRequest = headers['hx-history-restore-request']
     if (!isFileName && (!hxRequest || hxHistoryRestoreRequest)) {
-      const indexHtml = path.resolve(process.cwd(), 'vite', 'dist', 'index.html')
+      const indexHtml = path.join(options.dist, 'index.html')
       reply.header('Content-Type', 'text/html')
       reply.send(fs.createReadStream(indexHtml, 'utf8'))
     }
@@ -30,9 +35,9 @@ async function plugin(fastify, opts) {
 
   fastify.register(require('point-of-view'), {
     engine: { pug: require('pug') },
-    root: './views',
+    root: options.views,
     options: {
-      basedir: process.cwd() + '/views'
+      basedir: path.join(__dirname, '..') // "node_modules"
     }
   })
 

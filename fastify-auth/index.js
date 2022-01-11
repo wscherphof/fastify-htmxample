@@ -7,7 +7,7 @@ const fp = require('fastify-plugin')
 
 async function plugin(fastify, opts) {
 
-  function authorised(method, enforce) {
+  function auth(method, enforce) {
     return function (path, options, handler) {
       if (typeof options === 'function') {
         handler = options
@@ -31,18 +31,18 @@ async function plugin(fastify, opts) {
     }
   }
 
-  fastify.decorate('authorised', {
-    get: authorised('get', true),
-    push: authorised('push', true),
-    post: authorised('post', true),
-    delete: authorised('delete', true),
-    patch: authorised('patch', true),
+  fastify.decorate('auth', {
+    get: auth('get', true),
+    push: auth('push', true),
+    post: auth('post', true),
+    delete: auth('delete', true),
+    patch: auth('patch', true),
     optional: {
-      get: authorised('get'),
-      push: authorised('push'),
-      post: authorised('post'),
-      delete: authorised('delete'),
-      patch: authorised('patch'),
+      get: auth('get'),
+      push: auth('push'),
+      post: auth('post'),
+      delete: auth('delete'),
+      patch: auth('patch'),
     }
   })
 
@@ -64,7 +64,7 @@ async function plugin(fastify, opts) {
 }
 
 module.exports = fp(plugin, {
-  name: 'fastify-authorised',
+  name: 'fastify-auth',
   dependencies: [
     'fastify-crypto',
     'fastify-cookie',

@@ -14,7 +14,7 @@ module.exports = async function (fastify, opts) {
 
   fastify.register(require('./fastify-crypto'))
 
-  fastify.register(require('./fastify-authorised'))
+  fastify.register(require('./fastify-auth'))
 
   fastify.register(require('./fastify-htmx'))
 
