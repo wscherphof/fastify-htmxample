@@ -17,14 +17,16 @@ module.exports = async function (fastify, opts) {
   })
 
   fastify.addHook('onRequest', (request, reply, done) => {
-    const file = request.url.match(/\.\w+$/)
-    const fromMe = request.headers['referer'] && request.headers['referer']
-      .startsWith(`${request.protocol}://${request.hostname}`)
-    if (!file && (!fromMe || request.headers['history-restore-request'])) {
-      const index = path.resolve(process.cwd(), 'html', 'dist', 'index.html')
-      const stream = fs.createReadStream(index, 'utf8')
+    const { url, headers, protocol, hostname } = request
+    const referer = headers.referer || ''
+    const externalReferer = !referer.startsWith(`${protocol}://${hostname}`)
+    const hxHistoryRestoreRequest = headers['hx-history-restore-request']
+    const isFileName = url.match(/\.\w+$/)
+    if (!isFileName && (externalReferer || hxHistoryRestoreRequest)) {
+      // In these cases, make sure to serve the full page HTML.
+      const indexHtml = path.resolve(process.cwd(), 'html', 'dist', 'index.html')
       reply.header('Content-Type', 'text/html')
-      reply.send(stream)
+      reply.send(fs.createReadStream(indexHtml, 'utf8'))
     }
     done()
   })
