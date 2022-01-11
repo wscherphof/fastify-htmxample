@@ -11,11 +11,12 @@ module.exports = async function (fastify, opts) {
 
   fastify.register(require('fastify-cookie'))
 
+  // serve the vite dist as the root
   fastify.register(require('fastify-static'), {
-    // serve the vite dist as the root
     root: path.join(__dirname, 'vite/dist')
   })
 
+  // in some cases, make sure to serve the full page HTML
   fastify.addHook('onRequest', (request, reply, done) => {
     const { url, headers, protocol, hostname } = request
     const referer = headers.referer || ''
@@ -23,7 +24,6 @@ module.exports = async function (fastify, opts) {
     const hxHistoryRestoreRequest = headers['hx-history-restore-request']
     const isFileName = url.match(/\.\w+$/)
     if (!isFileName && (externalReferer || hxHistoryRestoreRequest)) {
-      // in these cases, make sure to serve the full page HTML
       const indexHtml = path.resolve(process.cwd(), 'vite', 'dist', 'index.html')
       reply.header('Content-Type', 'text/html')
       reply.send(fs.createReadStream(indexHtml, 'utf8'))
