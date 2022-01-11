@@ -14,14 +14,13 @@ async function plugin(fastify, opts) {
     root: path.join(__dirname, 'vite/dist')
   })
 
-  // in some cases, make sure to serve the full page HTML
+  // serve the full page HTML when not Ajax
   fastify.addHook('onRequest', (request, reply, done) => {
-    const { url, headers, protocol, hostname } = request
-    const referer = headers.referer || ''
-    const externalReferer = !referer.startsWith(`${protocol}://${hostname}`)
+    const { url, headers } = request
+    const isFileName = url.match(/\.\w+$/) // .js, .css, ...
+    const hxRequest = headers['hx-request']
     const hxHistoryRestoreRequest = headers['hx-history-restore-request']
-    const isFileName = url.match(/\.\w+$/)
-    if (!isFileName && (externalReferer || hxHistoryRestoreRequest)) {
+    if (!isFileName && (!hxRequest || hxHistoryRestoreRequest)) {
       const indexHtml = path.resolve(process.cwd(), 'vite', 'dist', 'index.html')
       reply.header('Content-Type', 'text/html')
       reply.send(fs.createReadStream(indexHtml, 'utf8'))
