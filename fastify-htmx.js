@@ -29,10 +29,11 @@ async function plugin(fastify, opts) {
   })
 
   fastify.register(require('point-of-view'), {
-    engine: {
-      pug: require('pug')
-    },
-    root: './views'
+    engine: { pug: require('pug') },
+    root: './views',
+    options: {
+      basedir: process.cwd() + '/views'
+    }
   })
 
   fastify.decorateReply('hxRedirect', function hxRedirect(path) {
