@@ -2,7 +2,7 @@
 
 module.exports = async function (fastify, opts) {
   fastify.get('/signup', async function (request, reply) {
-    return reply.view('users/signup')
+    return reply.view('users/signUp')
   })
 
   fastify.post('/', async function (request, reply) {
@@ -114,7 +114,7 @@ module.exports = async function (fastify, opts) {
   })
 
   fastify.get('/signin', async function (request, reply) {
-    return reply.view('users/signin')
+    return reply.view('users/signIn')
   })
 
   fastify.post('/signin', async function (request, reply) {
