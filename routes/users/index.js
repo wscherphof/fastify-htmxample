@@ -111,14 +111,12 @@ module.exports = async function (fastify, opts) {
       httpOnly: true,
       secure: !request.hostname.startsWith('localhost')
     })
-    reply.header('HX-Redirect', '/')
-    return 'redirect'
+    return redirect(reply, '/')
   }
 
   fastify.post('/signout', async function (request, reply) {
     reply.clearCookie('Authorization')
-    reply.header('HX-Redirect', '/')
-    return 'redirect'
+    return redirect(reply, '/')
   })
 
   fastify.get('/signin', async function (request, reply) {
@@ -139,6 +137,11 @@ module.exports = async function (fastify, opts) {
       throw error
     }
   })
+
+  function redirect(reply, path) {
+    reply.header('HX-Redirect', path)
+    return 'redirect'
+  }
 
   function badRequest(message) {
     throw fastify.httpErrors.badRequest(message)
