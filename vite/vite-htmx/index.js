@@ -3,7 +3,7 @@ import 'htmx.org' // htmx from or { htmx } from don't work
 import 'https://unpkg.com/hyperscript.org@0.9.3' // not yet on npm
 import { MDCRipple } from '@material/ripple'
 import { MDCIconButtonToggle } from '@material/icon-button'
-import { MDCTextField } from '@material/textfield';
+import { MDCTextField } from '@material/textfield'
 
 htmx.on('htmx:configRequest', function ({ detail }) { // eslint-disable-line
   const { pathname, host, search } = window.location
@@ -18,9 +18,9 @@ htmx.on('htmx:configRequest', function ({ detail }) { // eslint-disable-line
 })
 
 htmx.on('htmx:load', function ({ detail }) { // eslint-disable-line
-  function init(classes, init) {
+  function init (classes, init) {
     classes = classes instanceof Array ? classes : [classes]
-    const { elt } = detail;
+    const { elt } = detail
     classes.forEach((className) => {
       if (elt.classList.contains(className)) {
         init(elt, className)

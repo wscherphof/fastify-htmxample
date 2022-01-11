@@ -15,69 +15,69 @@ const LEN = 32
 // nicked from https://github.com/patrickpissurno/fastify-esso
 /**
  * Turns cleartext into ciphertext
- * @param { Buffer } key 
- * @param { string } data 
+ * @param { Buffer } key
+ * @param { string } data
  * @returns { Promise<string> }
  */
-async function encrypt(key, data) {
+async function encrypt (key, data) {
   data = JSON.stringify(data)
-  const iv = await randomBytes(16);
-  const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+  const iv = await randomBytes(16)
+  const cipher = crypto.createCipheriv('aes-256-cbc', key, iv)
   return new Promise((resolve, reject) => {
-    let encrypted = '';
+    let encrypted = ''
     cipher.on('readable', () => {
-      let chunk;
-      while (null !== (chunk = cipher.read())) {
-        encrypted += chunk.toString('hex');
+      let chunk
+      while ((chunk = cipher.read()) !== null) {
+        encrypted += chunk.toString('hex')
       }
-    });
+    })
     cipher.on('end', () => {
-      resolve([iv.toString('hex'), encrypted].join(':'));
-    });
-    cipher.on('error', reject);
+      resolve([iv.toString('hex'), encrypted].join(':'))
+    })
+    cipher.on('error', reject)
 
-    cipher.write(data);
-    cipher.end();
-  });
+    cipher.write(data)
+    cipher.end()
+  })
 }
 
 // nicked from https://github.com/patrickpissurno/fastify-esso
 /**
 * Turns ciphertext into cleartext
-* @param { Buffer } key 
-* @param { string } data 
+* @param { Buffer } key
+* @param { string } data
 * @returns { Promise<string> }
 */
-async function decrypt(key, data) {
+async function decrypt (key, data) {
   const [iv, encrypted] = data.split(':')
   const decipher = crypto.createDecipheriv(
     'aes-256-cbc',
     key,
     Buffer.from(iv, 'hex')
-  );
+  )
   return new Promise((resolve, reject) => {
-    let chunk;
-    let decrypted = '';
+    let chunk
+    let decrypted = ''
     decipher.on('readable', () => {
-      while (null !== (chunk = decipher.read())) {
-        decrypted += chunk.toString('utf8');
+      while ((chunk = decipher.read()) !== null) {
+        decrypted += chunk.toString('utf8')
       }
-    });
+    })
     decipher.on('end', () => resolve(
       JSON.parse(decrypted)
-    ));
-    decipher.on('error', reject);
+    ))
+    decipher.on('error', reject)
 
-    decipher.write(encrypted, 'hex');
-    decipher.end();
-  });
+    decipher.write(encrypted, 'hex')
+    decipher.end()
+  })
 }
 
-async function plugin(fastify, opts) {
-  async function random() {
+async function plugin (fastify, opts) {
+  async function random () {
     return randomBytes(LEN)
   }
-  async function key() {
+  async function key () {
     const collection = await fastify.mongo.db.collection('conf')
     const conf = await collection.findOne()
     if (conf) {
@@ -106,7 +106,7 @@ async function plugin(fastify, opts) {
     },
     decrypt: async (data) => {
       return decrypt(await key(), data)
-    },
+    }
   })
 }
 
