@@ -10,11 +10,11 @@ module.exports = async function (fastify, opts) {
     errorHandler: false
   })
 
-  fastify.register(require('./fastify-crypto'))
+  fastify.register(require('fastify-crypto'))
 
-  fastify.register(require('./fastify-auth'))
+  fastify.register(require('fastify-auth'))
 
-  fastify.register(require('./fastify-htmx'))
+  fastify.register(require('fastify-htmx'))
 
   fastify.register(require('fastify-mongodb'), {
     // force to close the mongodb connection when app stopped

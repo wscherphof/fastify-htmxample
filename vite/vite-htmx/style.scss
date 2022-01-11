@@ -1,9 +1,0 @@
-@use 'material-icons/iconfont/material-icons.css';
-@use "@material/button/styles" as button;
-@use "@material/icon-button/styles" as icon-button;
-@use "@material/floating-label/mdc-floating-label";
-@use "@material/line-ripple/mdc-line-ripple";
-@use "@material/notched-outline/mdc-notched-outline";
-@use "@material/textfield";
-
-@include textfield.core-styles;
