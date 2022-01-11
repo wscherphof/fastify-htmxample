@@ -53,6 +53,8 @@ mixin mdc-button(options)
                 span.mdc-button__label.label= label
             if icon.trailing
                 +mdc-button-icon(icon.icon)
+        span.htmx-indicator(style='background-color: #0004; margin: .25rem; padding: .25rem;')
+            img(src='/spinner.svg', style='height: 1rem; transform: translateY(2px);')
 
 mixin mdc-button-icon(icon)
     i(aria-hidden=true).material-icons.mdc-button__icon.icon= icon
