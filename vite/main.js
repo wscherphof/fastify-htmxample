@@ -1,4 +1,5 @@
 import './style.scss'
+import './spinner.css'
 import 'htmx.org' // htmx from or { htmx } from don't work
 import 'https://unpkg.com/hyperscript.org@0.9.3' // not yet on npm
 import { MDCRipple } from '@material/ripple'
