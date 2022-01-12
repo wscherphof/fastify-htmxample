@@ -61,7 +61,7 @@ To demonstrate the setup, the app implements (not more than) a Register and
 Login sequence. Anyone can sign up by submitting their email address, which is
 stored in a database. Subsequently, an email is sent to that address, with a
 link to the password form. On submit, the token that was in the emailed link is
-verified, the user record in the database is updated with a hash of the
+verified, and the user record in the database is updated with a hash of the
 password. With the response, an encrypted cookie is set, which will authenticate
 the user on subsequent requests.
 
