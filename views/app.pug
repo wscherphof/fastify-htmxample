@@ -2,28 +2,26 @@ include /fastify-htmx/material/button
 
 if user
     p Welcome #{user.email.split('@')[0]}
-    p
-        +textButton('unveil')(
+    +textButton('unveil')(
             hx-get='/secret'
             hx-target='#app'
             hx-push-url='true'
         )
     p
-        +textButton('logout')(
+    +textButton('logout')(
             hx-post='/users/signout'
             hx-target='#app'
             hx-push-url='true'
         )
 else
-    p
-        +textButton('register')(
-            hx-get='/users/signup'
-            hx-target='#app'
-            hx-push-url='true'
-        )
-        | 
-        +raisedButton('login')(
-            hx-get='/users/signin'
-            hx-target='#app'
-            hx-push-url='true'
-        )
+    +textButton('register')(
+        hx-get='/users/signup'
+        hx-target='#app'
+        hx-push-url='true'
+    )
+    | 
+    +raisedButton('login')(
+        hx-get='/users/signin'
+        hx-target='#app'
+        hx-push-url='true'
+    )
