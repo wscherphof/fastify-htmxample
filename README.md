@@ -66,11 +66,45 @@ the user on subsequent requests.
 
 You'll notice that the URL in de browser changes on each action (e.g.
 `/users/register`), even when the HTML document isn't actually replaced, but
-only updated with partial HTML content, that is requested through Ajax.
+only updated with partial HTML content, that is requested through
+[Ajax](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX).
 
 Still, shoud you hit the browser's refresh button (or copy the URL and paste it
 in a new window), the complete HTML document is fetched, and partially updated
 again with the content corresponding to the URL.
+
+## Tools
+Apart from HTMX, Hyperscript, Fastify and Vite, the main packages that make this
+setup work, are:
+1. [fastify-htmx](https://github.com/wscherphof/fastify-htmx), a Fastify plugin
+   that arranges for:
+   1. Serving the Vite build.
+   1. Accepting Ajax requests (with cookies) from the Vite dev server.
+   1. Serving the full document instead of the partial content when needed.
+   1. HTMX utility functions as Fastify
+      [decorators](https://www.fastify.io/docs/latest/Reference/Decorators/).
+1. [dev-htmx](https://github.com/wscherphof/dev-htmx), the frontend complement
+   of fastify-htmx, to:
+   1. Enable HTMX and Hyperscript.
+   1. Direct Ajax request to Fastify server while the page is served by the Vite
+      dev server.
+   1. Pass URL queryparameters and cookies along with the Ajax requests.
+
+   Note that while we use Vite as the bundler in this repo, the dev-htmx package
+   is not bound to it; you could replace it with any alternative that knows how
+   to `import` things.
+
+### Template engine
+We use [point-of-view](https://github.com/fastify/point-of-view) to load the
+[pug](https://pugjs.org) engine to dynamically render parametrised HTML. But
+again: you're free to make different choices.
+
+From pug, we use
+[pug-material-design](https://github.com/wscherphof/pug-material-design) (still
+far from complete) to render [Material Design
+Components](https://material.io/develop/web). It's also imported client-side, to
+instantiate the JavaScript objects needed. There, it makes some special
+arrangements to make sure this also happens on the HTMX partial content loads.
 
 # Getting Started with Fastify-CLI [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
 This project was bootstrapped with Fastify-CLI.
