@@ -106,6 +106,38 @@ Components](https://material.io/develop/web). It's also imported client-side, to
 instantiate the JavaScript objects needed. There, it makes some special
 arrangements to make sure this also happens on the HTMX partial content loads.
 
+The `.pug` files are in the `views` directory.
+
+## New project
+To create a new project like this repo, take the following steps:
+1. `npm install [fastify-cli](https://github.com/fastify/fastify-cli) --global`
+1. `fastify generate <yourapp>`
+1. `cd <yourapp>`
+1. `npm install`
+1. `npm install fastify-htmx`
+1. Edit `app.js` to register the plugin:
+   `fastify.register(require('fastify-htmx'))`
+1. Optionally `npm install pug-material-design` and
+   `fastify.register(require('pug-material-design/fastify'))`
+1. Edit `routes/root.js` to change the `get('/')` to `get('/app')`
+1. `npm init vite@latest vite` - choose vanilla or vanilla-ts (for TypeScript)
+1. `cd vite`
+1. `npm install`
+1. `npm install dev-htmx`
+1. Optionally (for Material Design): `npm install -D sass`
+1. Edit `index.html` to include the following attributes on the `<div id="app">`
+   element:
+    1. `hx-get="/app"`
+    1. `hx-trigger="load delay:100ms"`
+1. Edit `main.js` to add the following imports:
+    1. `import 'dev-htmx'`
+    1. Optionally `import 'pug-material-design'`
+1. `npn run build`
+1. `cd ..`
+1. `npm run dev` to start Fastify on port 3000
+1. Optionally, in another terminal, in the vite directory: `npm run dev` to
+   start the Vite server on port 3001
+
 # Getting Started with Fastify-CLI [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
 This project was bootstrapped with Fastify-CLI.
 

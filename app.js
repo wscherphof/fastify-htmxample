@@ -6,12 +6,6 @@ const AutoLoad = require('fastify-autoload')
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
 
-  fastify.register(require('fastify-sensible'), {
-    errorHandler: false
-  })
-
-  fastify.register(require('fastify-formbody'))
-
   fastify.register(require('fastify-htmx'))
 
   fastify.register(require('pug-material-design/fastify'))
@@ -38,6 +32,8 @@ module.exports = async function (fastify, opts) {
     }
   })
 
+  fastify.register(require('fastify-cookie'))
+
   fastify.register(require('fastify-cookie-auth'))
 
   fastify.register(require('fastify-mailer'), {
@@ -54,6 +50,8 @@ module.exports = async function (fastify, opts) {
       }
     }
   })
+
+  fastify.register(require('fastify-formbody'))
 
   // Do not touch the following lines
 
