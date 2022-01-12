@@ -3,8 +3,8 @@
 This repo aims to provide an example of a complete setup for an
 [HTMX](https://htmx.org) app.
 
-[HTMX](https://htmx.org) provides extensions for HTML, so that HTML content is
-really capable of fullfilling the [Hypermedia As The Engine Of Application
+HTMX provides extensions for HTML, so that HTML content is really capable of
+fullfilling the [Hypermedia As The Engine Of Application
 State](https://en.wikipedia.org/wiki/HATEOAS) paradigm that the web was designed
 for.
 
