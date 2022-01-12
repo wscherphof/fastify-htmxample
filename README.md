@@ -57,7 +57,7 @@ reload" everything you change within the vite directory. Note that the Fastify
 server also restarts on every change of a file in the repo.
 
 ## Demo
-Too demonstrate the setup, the app implements (not more than) a Register and
+To demonstrate the setup, the app implements (not more than) a Register and
 Login sequence. Anyone can sign up by submitting their email address, which is
 stored in a database. Subsequently, an email is sent to that address, with a
 link to the password form. On submit, the token that was in the emailed link is
