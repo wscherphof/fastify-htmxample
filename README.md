@@ -110,7 +110,8 @@ The `.pug` files are in the `views` directory.
 
 ## New project
 To create a new project like this repo, take the following steps:
-1. `npm install [fastify-cli](https://github.com/fastify/fastify-cli) --global`
+1. Install [fastify-cli](https://github.com/fastify/fastify-cli): `npm install
+   fastify-cli --global`
 1. `fastify generate <yourapp>`
 1. `cd <yourapp>`
 1. `npm install`
@@ -124,7 +125,8 @@ To create a new project like this repo, take the following steps:
 1. `cd vite`
 1. `npm install`
 1. `npm install dev-htmx`
-1. Optionally (for Material Design): `npm install -D sass`
+1. Optionally (for Material Design), install
+   [sass](https://sass-lang.com/dart-sass): `npm install -D sass`
 1. Edit `index.html` to include the following attributes on the `<div id="app">`
    element:
     1. `hx-get="/app"`
