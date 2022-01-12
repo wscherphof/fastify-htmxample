@@ -50,10 +50,11 @@ every time by starting the Vite development server:
 1. Open another terminal (keep Fastify running on port 3000 in the existing
    terminal)
 1. `cd` to the `vite` folder
-1. `npm run dev` to start the Vite server on port 3001 Change the browser URL to
-   http://localhost:3001 Now the browser will "hot reload" everything you change
-   within the vite directory. Note that the Fastify server alse restarts on
-   every change of a file in the repo.
+1. `npm run dev` to start the Vite server on port 3001
+
+Change the browser URL to http://localhost:3001 Now the browser will "hot
+reload" everything you change within the vite directory. Note that the Fastify
+server alse restarts on every change of a file in the repo.
 
 ## Demo
 Too demonstrate the setup, the app implements (not more than) a Register and
