@@ -86,13 +86,13 @@ setup work, are:
 1. [dev-htmx](https://github.com/wscherphof/dev-htmx), the frontend complement
    of fastify-htmx, to:
    1. Enable HTMX and Hyperscript.
-   1. Direct Ajax request to Fastify server while the page is served by the Vite
-      dev server.
-   1. Pass URL queryparameters and cookies along with the Ajax requests.
+   1. Direct Ajax requests to the Fastify server while the page is served by the
+      Vite dev server.
+   1. Pass URL query parameters and cookies along with the Ajax requests.
 
    Note that while we use Vite as the bundler in this repo, the dev-htmx package
-   is not bound to it; you could replace it with any alternative that knows how
-   to `import` things.
+   is not bound to it; you could replace Vite with any alternative that knows
+   how to `import` things.
 
 ### Template engine
 We use [point-of-view](https://github.com/fastify/point-of-view) to load the
