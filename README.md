@@ -3,10 +3,6 @@
 This repo aims to provide an example of a complete setup for an
 [HTMX](https://htmx.org) app.
 
-It uses [Fastify](https://www.fastify.io) as the [Node](https://nodejs.org)
-backend (Fastify is "the new [Express](https://expressjs.com/)"), and
-[Vite](https://vitejs.dev) as the "bundler" for the frontend.
-
 [HTMX](https://htmx.org) provides extensions for HTML, so that HTML content is
 really capable of fullfilling the [Hypermedia As The Engine Of Application
 State](https://en.wikipedia.org/wiki/HATEOAS) paradigm that the web was designed
@@ -15,6 +11,10 @@ for.
 HTMX also features [Hyperscript]() to create additional client-side
 interactions. It's enabled in this repo as well. Examples of its use will be
 added soon.
+
+We use [Fastify](https://www.fastify.io) as the [Node](https://nodejs.org)
+backend (Fastify is "the new [Express](https://expressjs.com/)"), and
+[Vite](https://vitejs.dev) as the "bundler" for the frontend.
 
 ## Run
 1. Install [Node](https://nodejs.org)
