@@ -25,9 +25,11 @@ backend (Fastify is "the new [Express](https://expressjs.com/)"), and
 1. `npm install`
 1. `npm run build` to build the Vite distribution
 1. `cd ..` back to the root
-1. `npm run dev` to start the Fastify server Browse to http://localhost:3000 ans
-   see that it worked. Click on any of the initial buttons, and on your
-   browser's Back button, but do not submit any of the resulting forms yet.
+1. `npm run dev` to start the Fastify server.
+
+Browse to http://localhost:3000 and see that it worked. Click on any of the
+initial buttons, and on your browser's Back button, but do not submit any of the
+resulting forms yet.
 
 ## Configure
 You'll need the connection details of an email box; maybe you'll want to use an
