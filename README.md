@@ -1,6 +1,6 @@
 # fastify-htmxample
 
-# Run
+## Run
 1. Install [Node](https://nodejs.org)
 1. Clone this repo
 1. `cd` into the clone's root
@@ -14,7 +14,7 @@
    buttons, and on your browser's Back button, but do not submit any of the
    resulting forms yet.
 
-# Configure
+## Configure
 You'll need the connection details of an email box; maybe you'll want to use an
 account on [outlook.com](https://outlook.live.com). Open `app.js` and modify the
 configuration of the
@@ -27,7 +27,7 @@ Now, when you click the Register button in your browser, and submit an email
 addres, you should recieve an email with a link (containing an encrypted token)
 to the form where you can create your password to sign in.
 
-# Vite server
+## Vite server
 If you're going to make changes in the `vite` folder, you can avoid rebuilding
 every time by starting the Vite development server:
 1. Open another terminal (keep Fastify running on post 3000 in the existing terminal)
