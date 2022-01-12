@@ -45,7 +45,7 @@ to the form where you can create your password to sign in.
 ## Vite server
 If you're going to make changes in the `vite` folder, you can avoid rebuilding
 every time by starting the Vite development server:
-1. Open another terminal (keep Fastify running on post 3000 in the existing
+1. Open another terminal (keep Fastify running on port 3000 in the existing
    terminal)
 1. `cd` to the `vite` folder
 1. `npm run dev` to start the Vite server on port 3001 Change the browser URL to
