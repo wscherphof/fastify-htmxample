@@ -10,13 +10,15 @@ module.exports = async function (fastify, opts) {
     errorHandler: false
   })
 
-  fastify.register(require('fastify-crypto'))
-
-  fastify.register(require('fastify-auth'))
+  fastify.register(require('fastify-formbody'))
 
   fastify.register(require('fastify-htmx'))
 
   fastify.register(require('pug-material-design/fastify'))
+
+  fastify.register(require('fastify-crypto'))
+
+  fastify.register(require('fastify-cookie-auth'))
 
   fastify.register(require('fastify-mongodb'), {
     // force to close the mongodb connection when app stopped
@@ -40,8 +42,6 @@ module.exports = async function (fastify, opts) {
       }
     }
   })
-
-  fastify.register(require('fastify-formbody'))
 
   // Do not touch the following lines
 
