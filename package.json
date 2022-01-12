@@ -1,5 +1,5 @@
 {
-  "name": "htmx",
+  "name": "fastify-htmxample",
   "version": "1.0.0",
   "description": "This project was bootstrapped with Fastify-CLI.",
   "main": "app.js",
@@ -16,14 +16,14 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wscherphof/htmx.git"
+    "url": "git+https://github.com/wscherphof/fastify-htmxample.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wscherphof/htmx/issues"
+    "url": "https://github.com/wscherphof/fastify-htmxample/issues"
   },
-  "homepage": "https://github.com/wscherphof/htmx#readme",
+  "homepage": "https://github.com/wscherphof/fastify-htmxample#readme",
   "dependencies": {
     "fastify": "^3.0.0",
     "fastify-autoload": "^3.3.1",
