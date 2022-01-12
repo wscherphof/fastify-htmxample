@@ -16,10 +16,6 @@ module.exports = async function (fastify, opts) {
 
   fastify.register(require('pug-material-design/fastify'))
 
-  fastify.register(require('fastify-crypto'))
-
-  fastify.register(require('fastify-cookie-auth'))
-
   fastify.register(require('fastify-mongodb'), {
     // force to close the mongodb connection when app stopped
     // the default value is false
@@ -27,6 +23,22 @@ module.exports = async function (fastify, opts) {
 
     url: 'mongodb+srv://mongo:mongo@cluster0.wjlcx.mongodb.net/htmx?retryWrites=true&w=majority'
   })
+
+  fastify.register(require('fastify-crypto'), {
+    async key() {
+      const collection = await fastify.mongo.db.collection('conf')
+      const conf = await collection.findOne()
+      if (conf) {
+        return conf.key.buffer
+      } else {
+        const key = await fastify.crypto.generateKey()
+        await collection.insertOne({ key })
+        return key
+      }
+    }
+  })
+
+  fastify.register(require('fastify-cookie-auth'))
 
   fastify.register(require('fastify-mailer'), {
     defaults: { from: 'Wouter Scherphof <wouter.scherphof@outlook.com>' },
