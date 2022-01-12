@@ -137,7 +137,7 @@ To create a new project like this repo, take the following steps:
 1. Edit `main.js` to add the following imports:
     1. `import 'dev-htmx'`
     1. Optionally `import 'pug-material-design'`
-1. `npn run build`
+1. `npm run build`
 1. `cd ..`
 1. `npm run dev` to start Fastify on port 3000
 1. Optionally, in another terminal, in the vite directory: `npm run dev` to
