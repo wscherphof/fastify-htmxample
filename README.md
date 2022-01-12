@@ -53,6 +53,25 @@ every time by starting the Vite development server:
    within the vite directory. Note that the Fastify server alse restarts on
    every change of a file in the repo.
 
+## Demo
+Too demonstrate the setup, the app implements (not more than) a Register and
+Login sequence. Anyone can sign up by submitting their email address, which is
+stored in a database. Subsequently, an email is sent to that address, with a
+link to the password form. On submit, the token that was in the emailed link is
+verified, the user record in the database is updated with a hash of the
+password. With the response, an encrypted cookie is set, which will authenticate
+the user on subsequent requests.
+
+## URLs
+
+You'll notice that the URL in de browser changes on each action (e.g.
+`/users/register`), even when the HTML document isn't actually replaced, but
+only updated with partial HTML content, that is requested through Ajax.
+
+Still, shoud you hit the browser's refresh button (or copy the URL and paste it
+in a new window), the complete HTML document is fetched, and partially updated
+again with the content corresponding to the URL.
+
 # Getting Started with Fastify-CLI [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
 This project was bootstrapped with Fastify-CLI.
 
