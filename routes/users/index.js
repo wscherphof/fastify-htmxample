@@ -36,7 +36,16 @@ module.exports = async function (fastify, opts) {
       const { envelope } = await fastify.mailer.sendMail(mail)
       return `Please follow the link in the email that ${envelope.from} sent to ${envelope.to[0]}`
     } catch (error) {
-      throw error
+      // throw error
+      return `
+        Probably the server's email credentials aren't configured yet.
+        See the README.md for how to do that.
+        To give you a break, we'll now do something that in Production would
+        really be out of the question: we'll show you the verification link
+        that should have been emailed. <br /> <br />
+        Follow this link to create your new password:
+        <a href="${url}">${url}</a>
+      `
     }
   }
 

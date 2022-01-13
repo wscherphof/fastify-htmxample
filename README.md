@@ -27,22 +27,7 @@ backend (Fastify is "the new [Express](https://expressjs.com/)"), and
 1. `cd ..` back to the root
 1. `npm run dev` to start the Fastify server.
 
-Browse to http://localhost:3000 and see that it worked. Click on any of the
-initial buttons, and on your browser's Back button, but do not submit any of the
-resulting forms yet.
-
-## Configure
-You'll need the connection details of an email box; maybe you'll want to use an
-account on [outlook.com](https://outlook.live.com). Open `app.js` and modify the
-configuration of the
-[fastify-mailer](https://github.com/coopflow/fastify-mailer) plugin. You can
-enter a password in the code, or use an enivironment variable. For the
-environment variable, stop the Fastify server (`Ctrl-C`), then enter e.g.
-`export OUTLOOK_PASSWORD=xxxxxx` before you `npm run dev` again.
-
-Now, when you click the Register button in your browser, and submit an email
-addres, you should recieve an email with a link (containing an encrypted token)
-to the form where you can create your password to sign in.
+Browse to http://localhost:3000 and see that it worked.
 
 ## Vite server
 If you're going to make changes in the `vite` folder, you can avoid rebuilding
@@ -64,6 +49,20 @@ link to the password form. On submit, the token that was in the emailed link is
 verified, and the user record in the database is updated with a hash of the
 password. With the response, an encrypted cookie is set, which will authenticate
 the user on subsequent requests.
+
+## Configure
+To complete the intended functionality of the demo, you'd need the connection
+details of an email box; maybe you want to use an account on
+[outlook.com](https://outlook.live.com). Open `app.js` and modify the
+configuration of the
+[fastify-mailer](https://github.com/coopflow/fastify-mailer) plugin. You can
+enter a password in the code, or use an enivironment variable. For the
+environment variable, stop the Fastify server (`Ctrl-C`), then enter e.g.
+`export OUTLOOK_PASSWORD=xxxxxx` before you `npm run dev` again.
+
+Now, when you click the Register or New Password buttons in your browser, and
+submit an email addres, you should recieve an email with a link (containing an
+encrypted token) to the form where you can create your password to sign in.
 
 ## URLs
 
