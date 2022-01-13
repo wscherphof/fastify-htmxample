@@ -9,7 +9,7 @@
   "scripts": {
     "pretest": "standard",
     "test": "tap \"test/**/*.test.js\"",
-    "start": "cd vite && npm install && npm run build && cd .. && fastify start -l info app.js",
+    "start": "fastify start -l info app.js",
     "dev": "fastify start -w -l info -P app.js",
     "lint": "standard --fix"
   },
