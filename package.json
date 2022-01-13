@@ -12,8 +12,7 @@
     "start": "fastify start -l info app.js",
     "dev": "fastify start -w -l info -P app.js",
     "lint": "standard --fix",
-    "postinstall": "cd vite && npm install && npm run build && cd ..",
-    "build:functions": "netlify-lambda build functions --config ./webpack.config.netlify.js"
+    "postinstall": "cd vite && npm install && npm run build && cd .."
   },
   "keywords": [],
   "repository": {
@@ -27,7 +26,6 @@
   },
   "homepage": "https://github.com/wscherphof/fastify-htmxample#readme",
   "dependencies": {
-    "aws-lambda-fastify": "^2.0.2",
     "dotenv-safe": "^8.2.0",
     "fastify": "^3.25.3",
     "fastify-autoload": "^3.3.1",
@@ -41,12 +39,8 @@
     "fastify-mongodb": "^4.1.1",
     "fastify-plugin": "^3.0.0",
     "fastify-sensible": "^3.1.0",
-    "netlify-lambda": "^2.0.15",
     "nodemailer": "^6.7.2",
-    "pug-material-design": "^0.1.1",
-    "webpack": "4",
-    "dotenv-webpack": "^1.8.0",
-    "webpack-node-externals": "^3.0.0"
+    "pug-material-design": "^0.1.1"
   },
   "devDependencies": {
     "standard": "^11.0.1",

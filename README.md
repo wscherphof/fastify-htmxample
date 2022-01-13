@@ -19,12 +19,8 @@ backend (Fastify is "the new [Express](https://expressjs.com/)"), and
 ## Run
 1. Install [Node](https://nodejs.org)
 1. Clone this repo
-1. `cd` into the clone's root
-1. run `npm install`
-1. `cd vite`
-1. `npm install`
-1. `npm run build` to build the Vite distribution
-1. `cd ..` back to the root
+1. Open a terminal and `cd` into the clone's root
+1. `npm install` to install all dependencies and build the Vite project
 1. `npm run dev` to start the Fastify server.
 
 Browse to http://localhost:3000 and see that it worked.
