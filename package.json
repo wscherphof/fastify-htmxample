@@ -12,7 +12,7 @@
     "start": "fastify start -l info app.js",
     "dev": "fastify start -w -l info -P app.js",
     "lint": "standard --fix",
-    "postinstall": "cd vite && npm install && npm run build && cd..",
+    "postinstall": "cd vite && npm install && npm run build && cd ..",
     "build:functions": "netlify-lambda build functions --config ./webpack.config.netlify.js"
   },
   "keywords": [],
