@@ -44,7 +44,8 @@
     "netlify-lambda": "^2.0.15",
     "nodemailer": "^6.7.2",
     "pug-material-design": "^0.1.1",
-    "webpack": "^5.66.0",
+    "webpack": "4",
+    "dotenv-webpack": "^1.8.0",
     "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
