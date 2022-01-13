@@ -28,6 +28,7 @@
   "homepage": "https://github.com/wscherphof/fastify-htmxample#readme",
   "dependencies": {
     "aws-lambda-fastify": "^2.0.2",
+    "dotenv-safe": "^8.2.0",
     "fastify": "^3.25.3",
     "fastify-autoload": "^3.3.1",
     "fastify-cli": "^2.14.0",
@@ -42,7 +43,9 @@
     "fastify-sensible": "^3.1.0",
     "netlify-lambda": "^2.0.15",
     "nodemailer": "^6.7.2",
-    "pug-material-design": "^0.1.1"
+    "pug-material-design": "^0.1.1",
+    "webpack": "^5.66.0",
+    "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
     "standard": "^11.0.1",
