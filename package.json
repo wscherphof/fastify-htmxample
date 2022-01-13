@@ -11,7 +11,9 @@
     "test": "tap \"test/**/*.test.js\"",
     "start": "fastify start -l info app.js",
     "dev": "fastify start -w -l info -P app.js",
-    "lint": "standard --fix"
+    "lint": "standard --fix",
+    "postinstall": "cd vite && npm install && npm run build && cd..",
+    "build:functions": "netlify-lambda build functions --config ./webpack.config.netlify.js"
   },
   "keywords": [],
   "repository": {
@@ -25,6 +27,7 @@
   },
   "homepage": "https://github.com/wscherphof/fastify-htmxample#readme",
   "dependencies": {
+    "aws-lambda-fastify": "^2.0.2",
     "fastify": "^3.25.3",
     "fastify-autoload": "^3.3.1",
     "fastify-cli": "^2.14.0",
