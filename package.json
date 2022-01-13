@@ -11,7 +11,8 @@
     "test": "tap \"test/**/*.test.js\"",
     "start": "fastify start -l info app.js",
     "dev": "fastify start -w -l info -P app.js",
-    "lint": "standard --fix"
+    "lint": "standard --fix",
+    "build": "cd vite && npm run build && cd .."
   },
   "keywords": [],
   "repository": {
