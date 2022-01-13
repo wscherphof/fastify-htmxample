@@ -12,7 +12,7 @@
     "start": "fastify start -l info app.js",
     "dev": "fastify start -w -l info -P app.js",
     "lint": "standard --fix",
-    "build": "cd vite && npm run build && cd .."
+    "build": "cd vite && npm install && npm run build && cd .."
   },
   "keywords": [],
   "repository": {
