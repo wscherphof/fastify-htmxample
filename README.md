@@ -30,8 +30,9 @@ backend (Fastify is "the new [Express](https://expressjs.com/)"), and
 Browse to http://localhost:3000 and see that it worked.
 
 ## Vite server
-If you're going to make changes in the `vite` folder, you can avoid rebuilding
-every time by starting the Vite development server:
+If you're going to make changes to the JavaScript project in the `vite`
+derictory, you can avoid having to rebuild it every time, by starting the Vite
+development server:
 1. Open another terminal (keep Fastify running on port 3000 in the existing
    terminal)
 1. `cd` to the `vite` folder
