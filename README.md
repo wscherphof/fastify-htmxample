@@ -47,6 +47,9 @@ verified, and the user record in the database is updated with a hash of the
 password. With the response, an encrypted cookie is set, which will authenticate
 the user on subsequent requests.
 
+There's a live version running as an Azure App Service at
+https://fastify-htmxample.azurewebsites.net/.
+
 ## Configure
 To complete the intended functionality of the demo, you'd need the connection
 details of an email box. Open `app.js` and modify the configuration of the
