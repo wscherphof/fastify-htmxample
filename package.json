@@ -9,7 +9,7 @@
   "scripts": {
     "pretest": "standard",
     "test": "tap \"test/**/*.test.js\" --no-check-coverage",
-    "start": "yarn install && fastify start -l info app.js",
+    "start": "fastify start -l info app.js",
     "dev": "fastify start -w -l info -P app.js",
     "lint": "standard --fix",
     "postinstall": "(cd vite && npm install --unsafe-perm)"
