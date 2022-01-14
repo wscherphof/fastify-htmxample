@@ -37,16 +37,14 @@ module.exports = async function (fastify, opts) {
   fastify.register(require('fastify-cookie-auth'))
 
   fastify.register(require('fastify-mailer'), {
-    defaults: { from: 'Wouter Scherphof <wouter.scherphof@outlook.com>' },
+    defaults: { from: 'Fastify HTMX <fastify.htmx@gmail.com>' },
     transport: {
-      host: 'smtp.office365.com',
-      port: 587,
+      host: 'smtp.gmail.com',
+      secure: true,
+      port: 465,
       auth: {
-        user: 'wouter.scherphof@outlook.com',
-        pass: process.env.OUTLOOK_PASSWORD
-      },
-      tls: {
-        ciphers: 'SSLv3'
+        user: 'fastify.htmx@gmail.com',
+        pass: process.env.GMAIL_PASSWORD
       }
     }
   })

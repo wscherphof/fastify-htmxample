@@ -49,17 +49,18 @@ the user on subsequent requests.
 
 ## Configure
 To complete the intended functionality of the demo, you'd need the connection
-details of an email box; maybe you want to use an account on
-[outlook.com](https://outlook.live.com). Open `app.js` and modify the
-configuration of the
+details of an email box. Open `app.js` and modify the configuration of the
 [fastify-mailer](https://github.com/coopflow/fastify-mailer) plugin. You can
 enter a password in the code, or use an enivironment variable. For the
 environment variable, stop the Fastify server (`Ctrl-C`), then enter e.g.
-`export OUTLOOK_PASSWORD=xxxxxx` before you `npm run dev` again.
+`export GMAIL_PASSWORD=xxxxxx` before you `npm run dev` again.
 
 Now, when you click the Register or New Password buttons in your browser, and
 submit an email addres, you should recieve an email with a link (containing an
 encrypted token) to the form where you can create your password to sign in.
+
+Note that if you connect to a Gmail account, you probably need to set it to
+allow for "less secure apps".
 
 ## URLs
 

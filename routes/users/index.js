@@ -37,6 +37,7 @@ module.exports = async function (fastify, opts) {
       return `Please follow the link in the email that ${envelope.from} sent to ${envelope.to[0]}`
     } catch (error) {
       // throw error
+      console.log(error)
       return `
         Probably the server's email credentials aren't configured yet.
         See the README.md for how to do that.
