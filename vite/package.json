@@ -4,13 +4,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "npm run build"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.1",
+    "autoprefixer": "^10.4.2",
     "postcss": "^8.4.5",
-    "sass": "^1.47.0",
-    "vite": "^2.7.2"
+    "sass": "^1.48.0",
+    "vite": "^2.7.12"
   },
   "dependencies": {
     "dev-htmx": "^0.1.0"
