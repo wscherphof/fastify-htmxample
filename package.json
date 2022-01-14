@@ -8,7 +8,7 @@
   },
   "scripts": {
     "pretest": "standard",
-    "test": "tap \"test/**/*.test.js\"",
+    "test": "tap \"test/**/*.test.js\" --no-check-coverage",
     "start": "fastify start -l info app.js",
     "dev": "fastify start -w -l info -P app.js",
     "lint": "standard --fix",
@@ -19,8 +19,8 @@
     "type": "git",
     "url": "git+https://github.com/wscherphof/fastify-htmxample.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Wouter Scherphof",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/wscherphof/fastify-htmxample/issues"
   },
