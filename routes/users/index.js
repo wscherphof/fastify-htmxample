@@ -20,7 +20,7 @@ module.exports = async function (fastify, opts) {
     return mailPassword(request, email)
   })
 
-  async function mailPassword(request, email) {
+  async function mailPassword (request, email) {
     const token = await fastify.crypto.encrypt({
       email,
       time: new Date()
@@ -111,7 +111,7 @@ module.exports = async function (fastify, opts) {
     return signIn(request, reply, { email })
   })
 
-  async function signIn(request, reply, data) {
+  async function signIn (request, reply, data) {
     await reply.signIn(data, {
       secure: !request.hostname.startsWith('localhost')
     })
@@ -147,7 +147,7 @@ module.exports = async function (fastify, opts) {
     }
   })
 
-  function badRequest(message) {
+  function badRequest (message) {
     throw fastify.httpErrors.badRequest(message)
   }
 }
