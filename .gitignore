@@ -59,3 +59,6 @@ profile-*
 profile*
 *clinic*
 *flamegraph*
+
+# environment variables
+.env

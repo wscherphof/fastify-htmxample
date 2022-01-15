@@ -115,12 +115,12 @@ module.exports = async function (fastify, opts) {
     await reply.signIn(data, {
       secure: !request.hostname.startsWith('localhost')
     })
-    return reply.hxRedirect('/')
+    reply.hxRedirect('/')
   }
 
   fastify.post('/signout', async function (request, reply) {
     reply.signOut()
-    return reply.hxRedirect('/')
+    reply.hxRedirect('/')
   })
 
   fastify.get('/signin', async function (request, reply) {

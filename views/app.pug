@@ -1,27 +1,47 @@
 include /pug-material-design/button
 
-if user
-    p Welcome #{user.email.split('@')[0]}
-    +textButton('unveil')(
+#model
+
+header
+nav
+    +textButton('home')(
+        _=`on click put '/' into the href of the window's location`
+    )
+    if user
+        +textButton('show secret')(
             hx-get='/secret'
-            hx-target='#app'
+            hx-target='#modelSecret'
             hx-push-url='true'
+            _=`
+                on showSecret from #model add @disabled
+                on hideSecret from #model remove @disabled
+            `
         )
-    p
-    +textButton('logout')(
+        | 
+        +textButton('logout')(
             hx-post='/users/signout'
-            hx-target='#app'
+            hx-target='main'
+        )
+    else
+        +textButton('register')(
+            hx-get='/users/signup'
+            hx-target='main'
             hx-push-url='true'
         )
-else
-    +textButton('register')(
-        hx-get='/users/signup'
-        hx-target='#app'
-        hx-push-url='true'
-    )
-    | 
-    +raisedButton('login')(
-        hx-get='/users/signin'
-        hx-target='#app'
-        hx-push-url='true'
-    )
+        | 
+        +raisedButton('login')(
+            hx-get='/users/signin'
+            hx-target='main'
+            hx-push-url='true'
+            _=`
+                on showSignIn from #model hide with visibility
+                on popstate from the window show with visibility
+            `
+        )
+    hr
+aside
+main
+    if user
+        h1 Welcome #{user.email.split('@')[0]}
+        p#modelSecret
+footer

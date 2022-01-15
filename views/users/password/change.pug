@@ -3,7 +3,7 @@ include /pug-material-design/button
 
 form(
     hx-post='/users/password/change'
-    hx-target='#app'
+    hx-target='main'
 )
     p: +filledTextField('email', 'email', 'email')
     p: +raisedButton('send')

@@ -3,14 +3,16 @@ include /pug-material-design/button
 
 form(
     hx-post='/users/signin'
-    hx-target='#app'
+    _=`
+        init send showSignIn to #model
+    `
 )
     p: +filledTextField('email', 'email', 'email')
     p: +filledTextField('password', 'password', 'password')
     p
         +textButton('new password')(
             hx-get='/users/password/change'
-            hx-target='#app'
+            hx-target='main'
             hx-push-url='true'
         )
         | 

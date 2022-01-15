@@ -30,17 +30,16 @@
     "fastify": "^3.25.3",
     "fastify-autoload": "^3.3.1",
     "fastify-cli": "^2.14.0",
-    "fastify-cookie": "^5.5.0",
-    "fastify-cookie-auth": "^0.2.0",
+    "fastify-cookie-auth": "^0.3.1",
     "fastify-crypto": "^0.1.0",
     "fastify-formbody": "^5.2.0",
-    "fastify-htmx": "^0.1.0",
+    "fastify-htmx": "^0.1.1",
     "fastify-mailer": "^2.2.0",
     "fastify-mongodb": "^4.1.1",
     "fastify-plugin": "^3.0.0",
     "fastify-sensible": "^3.1.0",
     "nodemailer": "^6.7.2",
-    "pug-material-design": "^0.1.1"
+    "pug-material-design": "^0.1.2"
   },
   "devDependencies": {
     "standard": "^11.0.1",
