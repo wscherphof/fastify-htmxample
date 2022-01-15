@@ -1,5 +1,7 @@
 'use strict'
 
+const URL = require('url').URL;
+
 module.exports = async function (fastify, opts) {
   fastify.get('/signup', async function (request, reply) {
     return reply.view('users/signUp')
@@ -20,13 +22,13 @@ module.exports = async function (fastify, opts) {
     return mailPassword(request, email)
   })
 
-  async function mailPassword (request, email) {
+  async function mailPassword(request, email) {
     const token = await fastify.crypto.encrypt({
       email,
       time: new Date()
     })
-    const { protocol, hostname } = request
-    const url = `${protocol}://${hostname}/users/password?token=${token}`
+    const currentUrl = new URL(request.headers['hx-current-url'])
+    const url = `${currentUrl.origin}/users/password?token=${token}`
     const mail = {
       to: email,
       subject: 'Instructions for creating your new password',
@@ -111,7 +113,7 @@ module.exports = async function (fastify, opts) {
     return signIn(request, reply, { email })
   })
 
-  async function signIn (request, reply, data) {
+  async function signIn(request, reply, data) {
     await reply.signIn(data, {
       secure: !request.hostname.startsWith('localhost')
     })
@@ -147,7 +149,7 @@ module.exports = async function (fastify, opts) {
     }
   })
 
-  function badRequest (message) {
+  function badRequest(message) {
     throw fastify.httpErrors.badRequest(message)
   }
 }

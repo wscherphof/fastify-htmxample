@@ -3,9 +3,6 @@ include /pug-material-design/button
 
 form(
     hx-post='/users/signin'
-    _=`
-        init send showSignIn to #model
-    `
 )
     p: +filledTextField('email', 'email', 'email')
     p: +filledTextField('password', 'password', 'password')

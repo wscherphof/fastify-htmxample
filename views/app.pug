@@ -29,14 +29,10 @@ nav
             hx-push-url='true'
         )
         | 
-        +raisedButton('login')(
+        +textButton('login')(
             hx-get='/users/signin'
             hx-target='main'
             hx-push-url='true'
-            _=`
-                on showSignIn from #model hide with visibility
-                on popstate from the window show with visibility
-            `
         )
     hr
 aside
