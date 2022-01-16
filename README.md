@@ -9,8 +9,9 @@ State](https://en.wikipedia.org/wiki/HATEOAS) paradigm that the web was designed
 for.
 
 HTMX also features [Hyperscript]() to create additional client-side
-interactions. It's enabled in this repo as well. Examples of its use will be
-added soon.
+interactions. In this repo, it's used in
+[./views/secret.pug](./views/secret.pug) and in
+[./views/app.pug](./views/app.pug).
 
 We use [Fastify](https://www.fastify.io) as the [Node](https://nodejs.org)
 backend (Fastify is "the new [Express](https://expressjs.com/)"), and
@@ -109,7 +110,8 @@ Components](https://material.io/develop/web). It's also imported client-side, to
 instantiate the JavaScript objects needed. There, it makes some special
 arrangements to make sure this also happens on the HTMX partial content loads.
 
-The `.pug` files are in the `views` directory.
+The `.pug` files are in the `views` directory. As an extension, you can use `!=
+include('template')` to dynamically include a child template.
 
 ## New project
 To create a new project like this repo, take the following steps:
@@ -128,8 +130,6 @@ To create a new project like this repo, take the following steps:
 1. `cd vite`
 1. `npm install`
 1. `npm install dev-htmx`
-1. Optionally (for Material Design), install
-   [sass](https://sass-lang.com/dart-sass): `npm install -D sass`
 1. Edit `index.html` to include the following attributes on the `<div id="app">`
    element:
     1. `hx-get="/app"`

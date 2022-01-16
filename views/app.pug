@@ -37,7 +37,12 @@ nav
     hr
 aside
 main
-    if user
-        h1 Welcome #{user.email.split('@')[0]}
-        p#modelSecret
+    case url.pathname
+        when '/'
+            if user
+                h1 Welcome #{user.email.split('@')[0]}
+                p#modelSecret
+        default
+            //- custom dynamic include
+            != include(url.pathname)
 footer
