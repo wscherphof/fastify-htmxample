@@ -7,7 +7,16 @@ module.exports = async function (fastify, opts) {
     return reply.view('users/signup')
   })
 
-  fastify.post('/', async function (request, reply) {
+  const rateLimit = {
+    config: {
+      rateLimit: {
+        max: 1,
+        timeWindow: '5 minutes'
+      }
+    }
+  }
+
+  fastify.post('/', rateLimit, async function (request, reply) {
     const { email } = request.body
     const users = fastify.mongo.db.collection('users')
     try {
@@ -56,7 +65,7 @@ module.exports = async function (fastify, opts) {
     return reply.view('users/password/change')
   })
 
-  fastify.post('/password/change', async function (request, reply) {
+  fastify.post('/password/change', rateLimit, async function (request, reply) {
     const { email } = request.body
     const users = fastify.mongo.db.collection('users')
     try {

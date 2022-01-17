@@ -61,6 +61,12 @@ module.exports = async function (fastify, opts) {
 
   fastify.register(require('fastify-formbody'))
 
+  fastify.register(require('fastify-rate-limit'), {
+    max: 100,
+    timeWindow: '1 minute',
+    ban: 3
+  })
+
   // Do not touch the following lines
 
   // This loads all plugins defined in routes
