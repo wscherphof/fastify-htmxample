@@ -64,7 +64,7 @@ submit an email addres, you should recieve an email with a link (containing an
 encrypted token) to the form where you can create your password to sign in.
 
 Note that if you connect to a Gmail account, you probably need to set it to
-allow for "less secure apps".
+allow access from "less secure apps".
 
 ## URLs
 
@@ -75,7 +75,7 @@ only updated with partial HTML content, that is requested through
 
 Still, shoud you hit the browser's refresh button (or copy the URL and paste it
 in a new window), the complete HTML document is fetched, and partially updated
-again with the content corresponding to the URL.
+again with the content matching the URL.
 
 ## Tools
 Apart from HTMX, Hyperscript, Fastify and Vite, the main packages that make this
@@ -93,6 +93,8 @@ setup work, are:
    1. Direct Ajax requests to the Fastify server while the page is served by the
       Vite dev server.
    1. Pass URL query parameters and cookies along with the Ajax requests.
+   1. Detect when the page is loading from a "pushed" URL, and refetch the
+      corresponding content.
 
    Note that while we use Vite as the bundler in this repo, the dev-htmx package
    is not bound to it; you could replace Vite with any alternative that knows
@@ -110,8 +112,7 @@ Components](https://material.io/develop/web). It's also imported client-side, to
 instantiate the JavaScript objects needed. There, it makes some special
 arrangements to make sure this also happens on the HTMX partial content loads.
 
-The `.pug` files are in the `views` directory. As an extension, you can use `!=
-include('template')` to dynamically include a child template.
+The `.pug` files are in the `views` directory.
 
 ## New project
 To create a new project like this repo, take the following steps:
