@@ -10,7 +10,7 @@ nav
     if user
         +textButton('show secret')(
             hx-get='/secret'
-            hx-target='#modelSecret'
+            hx-target='main'
             hx-push-url='true'
             _=`
                 on showSecret from #model add @disabled
@@ -38,6 +38,5 @@ nav
 aside
 main
     if user
-        h1 Welcome #{user.email.split('@')[0]}
-        p#modelSecret
+        p Welcome #{user.email.split('@')[0]}
 footer

@@ -134,10 +134,11 @@ To create a new project like this repo, take the following steps:
 1. Edit `index.html` to include the following attributes on the `<div id="app">`
    element:
     1. `hx-get="/app"`
-    1. `hx-trigger="load delay:100ms"`
-1. Edit `main.js` to add the following imports:
-    1. `import 'dev-htmx'`
+    1. `hx-trigger="init"`
+1. Edit `main.js` to add the following:
+    1. `import devHtmx 'dev-htmx'`
     1. Optionally `import 'pug-material-design'`
+    1. `devHtmx.init()`
 1. `npm run build`
 1. `cd ..`
 1. `npm run dev` to start Fastify on port 3000
