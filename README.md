@@ -92,7 +92,7 @@ setup work, are:
    1. Enable HTMX and Hyperscript.
    1. Direct Ajax requests to the Fastify server while the page is served by the
       Vite dev server.
-   1. Pass URL query parameters and cookies along with the Ajax requests.
+   1. Pass URL query parameters along with the Ajax requests.
    1. Detect when the page is loading from a "pushed" URL, and refetch the
       corresponding content.
 
