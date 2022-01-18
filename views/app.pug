@@ -10,7 +10,7 @@ include /pug-material-design/button
                 action='/secret'
                 hx-target='main'
                 hx-push-url='true'
-            ): +textButton('show secret')(type='submit' _=`
+            ): +textButton('show secret')(_=`
                     on showSecret from #model add @disabled
                     on hideSecret from #model remove @disabled
                 `)
@@ -19,19 +19,19 @@ include /pug-material-design/button
                 method='POST'
                 action='users/signout'
                 hx-target='main'
-            ): +textButton('logout')(type='submit')
+            ): +textButton('logout')
         else
             form(
                 action='/users/signup'
                 hx-target='main'
                 hx-push-url='true'
-            ): +textButton('register')(type='submit')
+            ): +textButton('register')
             | 
             form(
                 action='/users/signin'
                 hx-target='main'
                 hx-push-url='true'
-            ): +textButton('login')(type='submit')
+            ): +textButton('login')
         hr
     aside
     header

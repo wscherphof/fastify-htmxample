@@ -10,10 +10,9 @@ form(
     p
         +textButton('new password')(
             form='change'
-            type='submit'
         )
         | 
-        +raisedButton('sign in')(type='submit')
+        +raisedButton('sign in')()
 form(
     action='/users/password/change'
     hx-target='main'
