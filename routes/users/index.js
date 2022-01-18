@@ -4,7 +4,7 @@ const URL = require('url').URL
 
 module.exports = async function (fastify, opts) {
   fastify.get('/signup', async function (request, reply) {
-    return reply.view('users/signup', { request })
+    return reply.view('users/signup')
   })
 
   const rateLimit = {
@@ -62,7 +62,7 @@ module.exports = async function (fastify, opts) {
   }
 
   fastify.get('/password/change', async function (request, reply) {
-    return reply.view('users/password/change', { request })
+    return reply.view('users/password/change')
   })
 
   fastify.post('/password/change', rateLimit, async function (request, reply) {
@@ -84,7 +84,7 @@ module.exports = async function (fastify, opts) {
     const { token } = request.query
     try {
       const { email } = await fastify.crypto.decrypt(token)
-      return reply.view('users/password/index', { request, email, token })
+      return reply.view('users/password/index', { email, token })
     } catch (error) {
       return badRequest(error)
     }
@@ -135,7 +135,7 @@ module.exports = async function (fastify, opts) {
   })
 
   fastify.get('/signin', async function (request, reply) {
-    return reply.view('users/signin', { request })
+    return reply.view('users/signin')
   })
 
   fastify.post('/signin', async function (request, reply) {
