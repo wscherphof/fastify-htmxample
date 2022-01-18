@@ -125,7 +125,6 @@ To create a new project like this repo, take the following steps:
    `fastify.register(require('fastify-htmx'))`
 1. Optionally `npm install pug-material-design` and
    `fastify.register(require('pug-material-design/fastify'))`
-1. Edit `routes/root.js` to change the `get('/')` to `get('/app')`
 1. `npm init vite@latest vite` - choose vanilla or vanilla-ts (for TypeScript)
 1. `cd vite`
 1. `npm install`
