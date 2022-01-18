@@ -90,11 +90,10 @@ setup work, are:
 1. [dev-htmx](https://github.com/wscherphof/dev-htmx), the frontend complement
    of fastify-htmx, to:
    1. Enable HTMX and Hyperscript.
-   1. Direct Ajax requests to the Fastify server while the page is served by the
-      Vite dev server.
-   1. Pass URL query parameters along with the Ajax requests.
-   1. Detect when the page is loading from a "pushed" URL, and refetch the
-      corresponding content.
+   1. Direct Ajax requests to the backend server while the page is served by the
+      frontend dev server.
+   1. Fetch the inital app content from the backend, and insert it in the
+      "empty" index.html from the frontend dev server.
 
    Note that while we use Vite as the bundler in this repo, the dev-htmx package
    is not bound to it; you could replace Vite with any alternative that knows
