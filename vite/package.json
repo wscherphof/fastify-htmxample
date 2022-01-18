@@ -13,5 +13,8 @@
     "postcss": "^8.4.5",
     "standard": "^16.0.4",
     "vite": "^2.7.12"
+  },
+  "dependencies": {
+    "dev-htmx": "^0.7.0"
   }
 }

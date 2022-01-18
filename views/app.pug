@@ -1,6 +1,6 @@
 include /pug-material-design/button
 
-if request.htmx() && request.url !== '/app'
+if request.htmx
     block app
 else
     #model(hx-boost='true')
@@ -8,7 +8,7 @@ else
             +textButton('home')(
                 _=`on click put '/' into the href of the window's location`
             )
-            if user
+            if request.auth
                 form(
                     action='/secret'
                     hx-target='main'
@@ -40,6 +40,6 @@ else
         header
         main
             block app
-                if user
-                    p Welcome #{user.email.split('@')[0]}
+                if request.auth
+                    p Welcome #{request.auth.email.split('@')[0]}
         footer
