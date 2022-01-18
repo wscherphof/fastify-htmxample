@@ -77,6 +77,16 @@ Still, shoud you hit the browser's refresh button (or copy the URL and paste it
 in a new window), the complete HTML document is fetched, and partially updated
 again with the content matching the URL.
 
+## JavaScript
+Should you navigate the site from a non-JavaScript environment, it would largely
+still work. Any machine that speaks HTTP can use it. In this sense, the site
+effectively behaves as a data API to the application's resources, using HTML as
+the data format. It's self-describing: it lists the data you've requested, along
+with links to any related resources, including all the parameters you can send
+on to those links, _and_ a user interface to provision them. This is what's cool
+about hypermedia and
+[REST](https://en.wikipedia.org/wiki/Representational_state_transfer).
+
 ## Tools
 Apart from HTMX, Hyperscript, Fastify and Vite, the main packages that make this
 setup work, are:

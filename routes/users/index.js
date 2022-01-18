@@ -31,12 +31,13 @@ module.exports = async function (fastify, opts) {
     return mailPassword(request, email)
   })
 
-  async function mailPassword (request, email) {
+  async function mailPassword(request, email) {
     const token = await fastify.crypto.encrypt({
       email,
       time: new Date()
     })
-    const currentUrl = new URL(request.headers['hx-current-url'])
+    const { headers, protocol, hostname } = request
+    const currentUrl = new URL(headers['hx-current-url'] || `${protocol}://${hostname}`)
     const url = `${currentUrl.origin}/users/password?token=${token}`
     const mail = {
       to: email,
@@ -122,7 +123,7 @@ module.exports = async function (fastify, opts) {
     return signIn(request, reply, { email })
   })
 
-  async function signIn (request, reply, data) {
+  async function signIn(request, reply, data) {
     await reply.signIn(data, {
       secure: !request.hostname.startsWith('localhost')
     })
@@ -158,7 +159,7 @@ module.exports = async function (fastify, opts) {
     }
   })
 
-  function badRequest (message) {
+  function badRequest(message) {
     throw fastify.httpErrors.badRequest(message)
   }
 }
