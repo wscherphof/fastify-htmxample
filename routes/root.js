@@ -1,9 +1,8 @@
 'use strict'
 
 module.exports = async function (fastify, opts) {
-  fastify.auth.optional.get('/app', async function (request, reply, auth) {
-    const user = await auth
-    return reply.view('app', { user })
+  fastify.get('/', async function app (request, reply) {
+    return reply.view('app')
   })
 
   fastify.auth.get('/secret', async function (request, reply) {

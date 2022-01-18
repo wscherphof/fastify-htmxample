@@ -131,10 +131,6 @@ To create a new project like this repo, take the following steps:
 1. `cd vite`
 1. `npm install`
 1. `npm install dev-htmx`
-1. Edit `index.html` to include the following attributes on the `<div id="app">`
-   element:
-    1. `hx-get="/app"`
-    1. `hx-trigger="init"`
 1. Edit `main.js` to add the following:
     1. `import devHtmx 'dev-htmx'`
     1. Optionally `import 'pug-material-design'`
