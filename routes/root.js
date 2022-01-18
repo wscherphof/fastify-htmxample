@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = async function (fastify, opts) {
-  fastify.get('/', async function app(request, reply) {
+  fastify.get('/', async function app (request, reply) {
     return reply.view('app')
   })
 
