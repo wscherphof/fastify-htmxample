@@ -1,42 +1,41 @@
 include /pug-material-design/button
 
-#model
-
-header
-nav
-    +textButton('home')(
-        _=`on click put '/' into the href of the window's location`
-    )
-    if user
-        +textButton('show secret')(
-            hx-get='/secret'
-            hx-target='main'
-            hx-push-url='true'
-            _=`
-                on showSecret from #model add @disabled
-                on hideSecret from #model remove @disabled
-            `
+#model(hx-boost='true')
+    nav
+        +textButton('home')(
+            _=`on click put '/' into the href of the window's location`
         )
-        | 
-        +textButton('logout')(
-            hx-post='/users/signout'
-            hx-target='main'
-        )
-    else
-        +textButton('register')(
-            hx-get='/users/signup'
-            hx-target='main'
-            hx-push-url='true'
-        )
-        | 
-        +textButton('login')(
-            hx-get='/users/signin'
-            hx-target='main'
-            hx-push-url='true'
-        )
-    hr
-aside
-main
-    if user
-        p Welcome #{user.email.split('@')[0]}
-footer
+        if user
+            form(
+                action='/secret'
+                hx-target='main'
+                hx-push-url='true'
+            ): +textButton('show secret')(type='submit' _=`
+                    on showSecret from #model add @disabled
+                    on hideSecret from #model remove @disabled
+                `)
+            | 
+            form(
+                method='POST'
+                action='users/signout'
+                hx-target='main'
+            ): +textButton('logout')(type='submit')
+        else
+            form(
+                action='/users/signup'
+                hx-target='main'
+                hx-push-url='true'
+            ): +textButton('register')(type='submit')
+            | 
+            form(
+                action='/users/signin'
+                hx-target='main'
+                hx-push-url='true'
+            ): +textButton('login')(type='submit')
+        hr
+    aside
+    header
+    main
+        if user
+            p Welcome #{user.email.split('@')[0]}
+    footer

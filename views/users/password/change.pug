@@ -2,8 +2,9 @@ include /pug-material-design/textField
 include /pug-material-design/button
 
 form(
-    hx-post='/users/password/change'
+    method='POST'
+    action='/users/password/change'
     hx-target='main'
 )
     p: +filledTextField('email', 'email', 'email')
-    p: +raisedButton('send')
+    p: +raisedButton('send')(type='submit')

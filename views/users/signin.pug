@@ -2,15 +2,20 @@ include /pug-material-design/textField
 include /pug-material-design/button
 
 form(
-    hx-post='/users/signin'
+    method='POST'
+    action='/users/signin'
 )
     p: +filledTextField('email', 'email', 'email')
     p: +filledTextField('password', 'password', 'password')
     p
         +textButton('new password')(
-            hx-get='/users/password/change'
-            hx-target='main'
-            hx-push-url='true'
+            form='change'
+            type='submit'
         )
         | 
-        +raisedButton('sign in')
+        +raisedButton('sign in')(type='submit')
+form(
+    action='/users/password/change'
+    hx-target='main'
+    hx-push-url='true'
+)#change

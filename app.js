@@ -29,7 +29,7 @@ module.exports = async function (fastify, opts) {
   })
 
   fastify.register(require('fastify-crypto'), {
-    async key () {
+    async key() {
       const collection = await fastify.mongo.db.collection('conf')
       const conf = await collection.findOne()
       if (conf) {
@@ -58,6 +58,8 @@ module.exports = async function (fastify, opts) {
       }
     }
   })
+
+  fastify.register(require('fastify-method-override'))
 
   fastify.register(require('fastify-formbody'))
 

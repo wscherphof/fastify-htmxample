@@ -2,8 +2,9 @@ include /pug-material-design/textField
 include /pug-material-design/button
 
 form(
-    hx-post='/users'
+    method='POST'
+    action='/users'
     hx-target='main'
 )
     p: +filledTextField('email', 'email', 'email')
-    p: +raisedButton('sign up')
+    p: +raisedButton('sign up')(type='submit')
