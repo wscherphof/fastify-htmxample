@@ -1,10 +1,12 @@
+extends /../views/app
 include /pug-material-design/textField
 include /pug-material-design/button
 
-form(
-    method='POST'
-    action='/users'
-    hx-target='main'
-)
-    p: +filledTextField('email', 'email', 'email')
-    p: +raisedButton('sign up')
+block app
+    form(
+        method='POST'
+        action='/users'
+        hx-target='main'
+    )
+        p: +filledTextField('email', 'email', 'email')
+        p: +raisedButton('sign up')
