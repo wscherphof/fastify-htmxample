@@ -66,7 +66,8 @@ module.exports = async function (fastify, opts) {
   fastify.register(require('fastify-rate-limit'), {
     max: 100,
     timeWindow: '1 minute',
-    ban: 3
+    ban: 3,
+    allowList: ['127.0.0.1']
   })
 
   // Do not touch the following lines
