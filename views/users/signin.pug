@@ -1,20 +1,22 @@
-include /pug-material-design/textField
-include /pug-material-design/button
+extends /../views/app
+block app
+    include /pug-material-design/textField
+    include /pug-material-design/button
 
-form(
-    method='POST'
-    action='/users/signin'
-)
-    p: +filledTextField('email', 'email', 'email')
-    p: +filledTextField('password', 'password', 'password')
-    p
-        +textButton('new password')(
-            form='change'
-        )
-        | 
-        +raisedButton('sign in')()
-form(
-    action='/users/password/change'
-    hx-target='main'
-    hx-push-url='true'
-)#change
+    form(
+        method='POST'
+        action='/users/signin'
+    )
+        p: +filledTextField('email', 'email', 'email')
+        p: +filledTextField('password', 'password', 'password')
+        p
+            +textButton('new password')(
+                form='change'
+            )
+            | 
+            +raisedButton('sign in')()
+    form(
+        action='/users/password/change'
+        hx-target='main'
+        hx-push-url='true'
+    )#change

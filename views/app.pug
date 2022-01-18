@@ -1,6 +1,6 @@
 include /pug-material-design/button
 
-if request.htmx()
+if request.htmx() && request.url !== '/app'
     block app
 else
     #model(hx-boost='true')
