@@ -139,15 +139,19 @@ To create a new project like this repo, take the following steps:
 1. `cd vite`
 1. `npm install`
 1. `npm install dev-htmx`
-1. Edit `main.js` to add the following:
-    1. `import devHtmx 'dev-htmx'`
-    1. Optionally `import 'pug-material-design'`
-    1. `devHtmx.init()`
+1. Edit `main.js`:
+   1. Delete the lines setting `document.querySelector('#app').innerHTML`
+   1. Add the following:
+      1. `import devHtmx from 'dev-htmx'`
+      1. Optionally `import 'pug-material-design'`
+      1. `devHtmx.init()`
 1. `npm run build`
 1. `cd ..`
 1. `npm run dev` to start Fastify on port 3000
+1. Browse to http://localhost:3000
 1. Optionally, in another terminal, in the vite directory: `npm run dev` to
-   start the Vite server on port 3001
+   start the Vite server on port 3001, and change the browser's address to
+   http://localhost:3001
 
 # Getting Started with Fastify-CLI [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
 This project was bootstrapped with Fastify-CLI.
