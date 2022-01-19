@@ -158,6 +158,7 @@ To create a new project like this repo, take the following steps:
    http://localhost:3001
 
 ## To Do
+1. Add tests.
 1. Have the GUI handle HTTP error codes 4xx/5xx.
 1. Please file a GitHub issue should you have comments, find bugs, or request
    new features.
