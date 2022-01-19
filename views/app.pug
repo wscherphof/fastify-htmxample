@@ -1,6 +1,9 @@
 include /pug-material-design/button
 
 if request.htmx
+    //- for htmx-requests, skip the surrounding app, so that only the requested
+    //- partial content is rendered; see
+    //- https://pugjs.org/language/inheritance.html
     block app
 else
     #model(hx-boost='true')
@@ -42,6 +45,8 @@ else
         aside
         header
         main
+            //- this is what gets replaced by the partial content from
+            //- htmx-requests
             block app
                 if request.auth
                     p Welcome #{request.auth.email.split('@')[0]}
