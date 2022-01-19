@@ -49,7 +49,8 @@ password. With the response, an encrypted cookie is set, which will authenticate
 the user on subsequent requests.
 
 There's a live version running as an Azure App Service at
-https://fastify-htmxample.azurewebsites.net/.
+https://fastify-htmxample.azurewebsites.net/. (It's hosted for free; it might
+take a minute to spin up for you)
 
 ## Configure
 To complete the intended functionality of the demo, you'd need the connection
@@ -69,8 +70,8 @@ allow access from "less secure apps".
 ## URLs
 
 You'll notice that the URL in de browser changes on each action (e.g.
-`/users/register`), even when the HTML document isn't actually replaced, but
-only updated with partial HTML content, that is requested through
+`/users/signup`), even when the HTML document isn't actually replaced, but only
+updated with partial HTML content, that is requested through
 [Ajax](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX).
 
 Still, shoud you hit the browser's refresh button (or copy the URL and paste it
