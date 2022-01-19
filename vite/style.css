@@ -14,3 +14,12 @@ form {
 .htmx-indicator {
   opacity: 0;
 }
+
+/* fallback for putting a div inside a p in pug */
+.p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
