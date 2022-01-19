@@ -47,6 +47,7 @@ else
             +get('/', '#app', true)(
                 hx-headers='{"HX-Init": true}'
             ): +textButton('home')
+            | 
             //- request.auth is from
             //- https://github.com/wscherphof/fastify-cookie-auth
             if request.auth
