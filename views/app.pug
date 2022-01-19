@@ -1,4 +1,33 @@
-include /pug-material-design/button
+mixin form(method, action, target, push)
+    - methodOverride = method != 'GET' && method != 'POST'
+    - push = push ? 'true' : false
+    form(
+        method=(methodOverride ? 'POST' : method)
+        action=action
+        hx-target=target
+        hx-push-url=push
+    )&attributes(attributes)
+        if methodOverride
+            //- _method is from
+            //- https://www.npmjs.com/package/fastify-method-override
+            input(type='hidden' name='_method' value=method)
+        block
+
+mixin get(action, target, push)
+    +form('GET', action, target, push)&attributes(attributes)
+        block
+
+mixin put(action, target, push)
+    +form('PUT', action, target, push)&attributes(attributes)
+        block
+
+mixin post(action, target, push)
+    +form('POST', action, target, push)&attributes(attributes)
+        block
+
+mixin delete(action, target, push)
+    +form('DELETE', action, target, push)&attributes(attributes)
+        block
 
 //- pug-material design automatically provides the request object
 //- request.htmx is from https://github.com/wscherphof/fastify-htmx
@@ -8,51 +37,33 @@ if request.htmx
     //- https://pugjs.org/language/inheritance.html
     block main
 else
+    include /pug-material-design/button
     //- use https://htmx.org/attributes/hx-boost/ (and forms around the buttons)
     //- to make it work without JavaScript as well
     #model(hx-boost='true')
         nav
             //- pass the HX-Init header to force request.htmx to false in this
             //- special case
-            form(
-                action='/'
-                hx-target='#app'
-                hx-push-url='true'
+            +get('/', '#app', true)(
                 hx-headers='{"HX-Init": true}'
-            ): +textButton('home')()
+            ): +textButton('home')
             //- request.auth is from
             //- https://github.com/wscherphof/fastify-cookie-auth
             if request.auth
-                form(
-                    action='/secret'
-                    hx-target='main'
-                    hx-push-url='true'
-                ): +textButton('show secret')(_=`
+                +get('/secret', 'main', true)
+                    +textButton('show secret')(_=`
                         on showSecret from #model add @disabled
                         on hideSecret from #model remove @disabled
                     `)
                 | 
-                form(
-                    method='POST'
-                    action='users/session'
-                    hx-target='main'
-                )
-                    //- _method is from
-                    //- https://www.npmjs.com/package/fastify-method-override
-                    input(type='hidden' name='_method' value='DELETE')
+                +delete('users/session', 'main')
                     +textButton('logout')
             else
-                form(
-                    action='/users/post'
-                    hx-target='main'
-                    hx-push-url='true'
-                ): +textButton('register')
+                +get('/users/post', 'main', true)
+                    +textButton('register')
                 | 
-                form(
-                    action='/users/session'
-                    hx-target='main'
-                    hx-push-url='true'
-                ): +textButton('login')
+                +get('/users/session', 'main', true)
+                    +textButton('login')
             hr
         aside
         header

@@ -3,10 +3,7 @@ block main
     include /pug-material-design/textField
     include /pug-material-design/button
 
-    form(
-        method='POST'
-        action='/users/session'
-    )
+    +post('/users/session')
         p: +filledTextField('email', 'email', 'email')
         p: +filledTextField('password', 'password', 'password')
         p
@@ -14,9 +11,5 @@ block main
                 form='change'
             )
             | 
-            +raisedButton('sign in')()
-    form(
-        action='/users/password/change'
-        hx-target='main'
-        hx-push-url='true'
-    )#change
+            +raisedButton('sign in')
+    +get('/users/password/change', 'main', true)#change

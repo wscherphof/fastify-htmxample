@@ -3,13 +3,9 @@ block main
     include /pug-material-design/textField
     include /pug-material-design/button
 
-    form(
-        method='POST'
-        action='/users/password'
-    )
-        input(type='hidden' name='_method' value='PUT')
+    +put('/users/password')
         input(type='hidden' name='token' value=token)
         p: +filledTextField('email', 'email', 'email', email)(disabled)
         p: +filledTextField('password', 'password', 'password')
         p: +filledTextField('password2', 'confirm password', 'password')
-        p: +raisedButton('save')()
+        p: +raisedButton('save')

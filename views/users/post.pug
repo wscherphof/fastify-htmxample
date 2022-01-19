@@ -3,10 +3,6 @@ block main
     include /pug-material-design/textField
     include /pug-material-design/button
 
-    form(
-        method='POST'
-        action='/users'
-        hx-target='main'
-    )
+    +post('/users', 'main')
         p: +filledTextField('email', 'email', 'email')
         p: +raisedButton('sign up')
