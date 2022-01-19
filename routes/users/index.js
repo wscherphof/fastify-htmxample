@@ -91,7 +91,7 @@ module.exports = async function (fastify, opts) {
     }
   })
 
-  fastify.post('/password', async function (request, reply) {
+  fastify.put('/password', async function (request, reply) {
     const { token, email, password, password2 } = request.body
     if (password !== password2) {
       return badRequest("passwords don't match")
