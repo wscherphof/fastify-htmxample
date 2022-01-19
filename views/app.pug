@@ -5,9 +5,12 @@ if request.htmx
 else
     #model(hx-boost='true')
         nav
-            +textButton('home')(
-                _=`on click put '/' into the href of the window's location`
-            )
+            form(
+                action='/'
+                hx-target='#app'
+                hx-push-url='true'
+                hx-headers='{"HX-Init": true}'
+            ): +textButton('home')()
             if request.auth
                 form(
                     action='/secret'
