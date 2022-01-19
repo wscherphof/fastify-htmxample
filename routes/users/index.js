@@ -3,8 +3,9 @@
 const URL = require('url').URL
 
 module.exports = async function (fastify, opts) {
-  fastify.get('/signup', async function (request, reply) {
-    return reply.view('users/signup')
+  // GET the form to create a new user with
+  fastify.get('/create', async function (request, reply) {
+    return reply.view('users/create')
   })
 
   const rateLimit = {
@@ -16,6 +17,7 @@ module.exports = async function (fastify, opts) {
     }
   }
 
+  // POST a new user
   fastify.post('/', rateLimit, async function (request, reply) {
     const { email } = request.body
     const users = fastify.mongo.db.collection('users')
@@ -32,6 +34,7 @@ module.exports = async function (fastify, opts) {
   })
 
   async function mailPassword (request, email) {
+    // fastify.crypto is from https://github.com/wscherphof/fastify-crypto
     const token = await fastify.crypto.encrypt({
       email,
       time: new Date()
@@ -62,10 +65,12 @@ module.exports = async function (fastify, opts) {
     }
   }
 
+  // GET the password/change form
   fastify.get('/password/change', async function (request, reply) {
     return reply.view('users/password/change')
   })
 
+  // POST a new password/change request
   fastify.post('/password/change', rateLimit, async function (request, reply) {
     const { email } = request.body
     const users = fastify.mongo.db.collection('users')
@@ -81,6 +86,7 @@ module.exports = async function (fastify, opts) {
     }
   })
 
+  // GET the new password form
   fastify.get('/password', async function (request, reply) {
     const { token } = request.query
     try {
@@ -91,6 +97,7 @@ module.exports = async function (fastify, opts) {
     }
   })
 
+  // PUT a new password in the user
   fastify.put('/password', async function (request, reply) {
     const { token, email, password, password2 } = request.body
     if (password !== password2) {
@@ -120,26 +127,33 @@ module.exports = async function (fastify, opts) {
     } catch (error) {
       throw error
     }
+    // after creating the password, immediately signin the user
     return signIn(request, reply, { email })
   })
 
+  // after signin, redirect to the home page
   async function signIn (request, reply, data) {
+    // reply.signIn is from https://github.com/wscherphof/fastify-cookie-auth
     await reply.signIn(data, {
       secure: !request.hostname.startsWith('localhost')
     })
+    // hxRedirect is from https://github.com/wscherphof/fastify-htmx
     reply.hxRedirect(request, '/')
   }
 
-  fastify.post('/signout', async function (request, reply) {
+  // DELETE the user's session
+  fastify.delete('/session', async function (request, reply) {
     reply.signOut()
     reply.hxRedirect(request, '/')
   })
 
-  fastify.get('/signin', async function (request, reply) {
-    return reply.view('users/signin')
+  // GET the form to create a session
+  fastify.get('/session', async function (request, reply) {
+    return reply.view('users/session')
   })
 
-  fastify.post('/signin', async function (request, reply) {
+  // POST a new session
+  fastify.post('/session', async function (request, reply) {
     const { email, password } = request.body
     const users = fastify.mongo.db.collection('users')
     try {

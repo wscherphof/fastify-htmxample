@@ -70,7 +70,7 @@ allow access from "less secure apps".
 ## URLs
 
 You'll notice that the URL in de browser changes on each action (e.g.
-`/users/signup`), even when the HTML document isn't actually replaced, but only
+`/users/session`), even when the HTML document isn't actually replaced, but only
 updated with partial HTML content, that is requested through
 [Ajax](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX).
 

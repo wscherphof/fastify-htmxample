@@ -1,19 +1,26 @@
 include /pug-material-design/button
 
+//- pug-material design automatically provides the request object
 if request.htmx
     //- for htmx-requests, skip the surrounding app, so that only the requested
     //- partial content is rendered; see
     //- https://pugjs.org/language/inheritance.html
     block app
 else
+    //- use https://htmx.org/attributes/hx-boost/ (and forms around the buttons)
+    //- to make it work without JavaScript as well
     #model(hx-boost='true')
         nav
+            //- pass the HX-Init header to force request.htmx to false in this
+            //- special case
             form(
                 action='/'
                 hx-target='#app'
                 hx-push-url='true'
                 hx-headers='{"HX-Init": true}'
             ): +textButton('home')()
+            //- request.auth is from
+            //- https://github.com/wscherphof/fastify-cookie-auth
             if request.auth
                 form(
                     action='/secret'
@@ -26,18 +33,22 @@ else
                 | 
                 form(
                     method='POST'
-                    action='users/signout'
+                    action='users/session'
                     hx-target='main'
-                ): +textButton('logout')
+                )
+                    //- _method is from
+                    //- https://www.npmjs.com/package/fastify-method-override
+                    input(type='hidden' name='_method' value='DELETE')
+                    +textButton('logout')
             else
                 form(
-                    action='/users/signup'
+                    action='/users/create'
                     hx-target='main'
                     hx-push-url='true'
                 ): +textButton('register')
                 | 
                 form(
-                    action='/users/signin'
+                    action='/users/session'
                     hx-target='main'
                     hx-push-url='true'
                 ): +textButton('login')
@@ -45,7 +56,7 @@ else
         aside
         header
         main
-            //- this is what gets replaced by the partial content from
+            //- this block is what gets replaced by the partial content from
             //- htmx-requests
             block app
                 if request.auth
