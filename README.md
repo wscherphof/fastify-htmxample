@@ -75,8 +75,8 @@ updated with partial HTML content, that is requested through
 [Ajax](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX).
 
 Still, shoud you hit the browser's refresh button (or copy the URL and paste it
-in a new window), the complete HTML document is fetched, and partially updated
-again with the content matching the URL.
+in a new window), the complete HTML document is fetched, with the content
+matching the URL.
 
 ## JavaScript
 Should you navigate the site from a non-JavaScript environment, it would largely
