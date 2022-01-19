@@ -5,7 +5,7 @@ const URL = require('url').URL
 module.exports = async function (fastify, opts) {
   // GET the form to create a new user with
   fastify.get('/create', async function (request, reply) {
-    return reply.view('users/create')
+    return reply.view('users/post')
   })
 
   const rateLimit = {
@@ -33,7 +33,7 @@ module.exports = async function (fastify, opts) {
     return mailPassword(request, email)
   })
 
-  async function mailPassword (request, email) {
+  async function mailPassword(request, email) {
     // fastify.crypto is from https://github.com/wscherphof/fastify-crypto
     const token = await fastify.crypto.encrypt({
       email,
@@ -91,7 +91,7 @@ module.exports = async function (fastify, opts) {
     const { token } = request.query
     try {
       const { email } = await fastify.crypto.decrypt(token)
-      return reply.view('users/password/index', { email, token })
+      return reply.view('users/password/put', { email, token })
     } catch (error) {
       return badRequest(error)
     }
@@ -132,7 +132,7 @@ module.exports = async function (fastify, opts) {
   })
 
   // after signin, redirect to the home page
-  async function signIn (request, reply, data) {
+  async function signIn(request, reply, data) {
     // reply.signIn is from https://github.com/wscherphof/fastify-cookie-auth
     await reply.signIn(data, {
       secure: !request.hostname.startsWith('localhost')
@@ -173,7 +173,7 @@ module.exports = async function (fastify, opts) {
     }
   })
 
-  function badRequest (message) {
+  function badRequest(message) {
     throw fastify.httpErrors.badRequest(message)
   }
 }
