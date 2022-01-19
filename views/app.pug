@@ -6,7 +6,7 @@ if request.htmx
     //- for htmx-requests, skip the surrounding app, so that only the requested
     //- partial content is rendered; see
     //- https://pugjs.org/language/inheritance.html
-    block app
+    block main
 else
     //- use https://htmx.org/attributes/hx-boost/ (and forms around the buttons)
     //- to make it work without JavaScript as well
@@ -59,7 +59,7 @@ else
         main
             //- this block is what gets replaced by the extending templates of
             //- specific URLs
-            block app
+            block main
                 if request.auth
                     p Welcome #{request.auth.email.split('@')[0]}
         footer
