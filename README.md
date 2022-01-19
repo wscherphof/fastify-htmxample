@@ -82,10 +82,10 @@ matching the URL.
 Should you navigate the site from a non-JavaScript environment, it would largely
 still work. Any machine that speaks HTTP can use it. In this sense, the site
 effectively behaves as a data API to the application's resources, using HTML as
-the data format. It's self-describing: it lists the data you've requested, along
-with links to any related resources, including all the parameters you can send
-on to those links, _and_ a user interface to provision them. This is what's cool
-about hypermedia and
+the data format. It's a self-describing format: it lists the data you've
+requested, along with links to any related resources, including all the
+parameters you can send on to those links, _and_ a user interface to provision
+them. This is what's cool about hypermedia and
 [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).
 
 ## Tools
