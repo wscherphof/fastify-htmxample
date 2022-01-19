@@ -3,7 +3,7 @@
 const URL = require('url').URL
 
 module.exports = async function (fastify, opts) {
-  // GET the form to create a new user with
+  // GET the form to post a new user with
   fastify.get('/post', async function (request, reply) {
     return reply.view('users/post')
   })
@@ -86,7 +86,7 @@ module.exports = async function (fastify, opts) {
     }
   })
 
-  // GET the new password form
+  // GET the form to put a new password in the user
   fastify.get('/password', async function (request, reply) {
     const { token } = request.query
     try {
@@ -147,7 +147,7 @@ module.exports = async function (fastify, opts) {
     reply.hxRedirect(request, '/')
   })
 
-  // GET the form to create a session
+  // GET the form to post a new session
   fastify.get('/session', async function (request, reply) {
     return reply.view('users/session')
   })
