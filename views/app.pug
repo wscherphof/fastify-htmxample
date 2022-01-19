@@ -1,6 +1,7 @@
 include /pug-material-design/button
 
 //- pug-material design automatically provides the request object
+//- request.htmx is from https://github.com/wscherphof/fastify-htmx
 if request.htmx
     //- for htmx-requests, skip the surrounding app, so that only the requested
     //- partial content is rendered; see
