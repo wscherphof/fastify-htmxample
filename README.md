@@ -122,7 +122,10 @@ Components](https://material.io/develop/web). It's also imported client-side, to
 instantiate the JavaScript objects needed. There, it makes some special
 arrangements to make sure this also happens on the HTMX partial content loads.
 
-The `.pug` files are in the `views` directory.
+The `.pug` files are in the `views` directory. You'll notice the use of pug's
+[inheritance](https://pugjs.org/language/inheritance.html) mechanism for
+rendering either the partial content, requested by HTMX, or the full HTML,
+including the surrounding app content.
 
 ## New project
 To create a new project like this repo, take the following steps:
