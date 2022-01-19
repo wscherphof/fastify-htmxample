@@ -4,7 +4,7 @@ const URL = require('url').URL
 
 module.exports = async function (fastify, opts) {
   // GET the form to create a new user with
-  fastify.get('/create', async function (request, reply) {
+  fastify.get('/post', async function (request, reply) {
     return reply.view('users/post')
   })
 
