@@ -154,6 +154,11 @@ To create a new project like this repo, take the following steps:
    start the Vite server on port 3001, and change the browser's address to
    http://localhost:3001
 
+## To Do
+1. Have the GUI handle HTTP error codes 4xx/5xx.
+1. Please file a GitHub issue should you have comments, find bugs, or request
+   new features.
+
 # Getting Started with Fastify-CLI [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
 This project was bootstrapped with Fastify-CLI.
 
