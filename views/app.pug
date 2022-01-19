@@ -56,7 +56,7 @@ else
                         on hideSecret from #model remove @disabled
                     `)
                 | 
-                +delete('users/session', 'main')
+                +delete('users/session')
                     +textButton('logout')
             else
                 +get('/users/post', 'main', true)
