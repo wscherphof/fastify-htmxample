@@ -2,7 +2,7 @@ mixin form(method, action, target, push)
     - methodOverride = method != 'GET' && method != 'POST'
     - push = push ? 'true' : false
     form(
-        method=(methodOverride ? 'POST' : method)
+        method=methodOverride ? 'POST' : method
         action=action
         hx-target=target
         hx-push-url=push
@@ -51,6 +51,7 @@ else
             //- https://github.com/wscherphof/fastify-cookie-auth
             if request.auth
                 +get('/secret', 'main', true)
+                    //- _hyperscript
                     +textButton('show secret')(_=`
                         on showSecret from #model add @disabled
                         on hideSecret from #model remove @disabled
