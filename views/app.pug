@@ -57,8 +57,8 @@ else
         aside
         header
         main
-            //- this block is what gets replaced by the partial content from
-            //- htmx-requests
+            //- this block is what gets replaced by the templates of extending
+            //- specific URLs
             block app
                 if request.auth
                     p Welcome #{request.auth.email.split('@')[0]}
