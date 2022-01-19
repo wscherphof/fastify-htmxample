@@ -3,6 +3,7 @@
 const URL = require('url').URL
 
 module.exports = async function (fastify, opts) {
+
   // GET the form to post a new user with
   fastify.get('/post', async function (request, reply) {
     return reply.view('users/post')
