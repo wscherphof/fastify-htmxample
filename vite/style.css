@@ -9,3 +9,7 @@
 form {
   display: inline;
 }
+
+.htmx-indicator {
+  opacity: 0;
+}
