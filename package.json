@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "[ ${NODE_ENV-development} = 'production' ] || husky install",
     "eslint": "eslint --ignore-path .gitignore .",
     "prettier": "prettier --ignore-path .gitignore .",
     "lint": "npm run eslint -- --fix && npm run prettier -- --write",
