@@ -5,13 +5,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "postinstall": "npm run build",
-    "lint": "standard --fix"
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.5",
-    "standard": "^16.0.4",
     "vite": "^2.7.12"
   },
   "dependencies": {

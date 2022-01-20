@@ -18,6 +18,7 @@ backend (Fastify is "the new [Express](https://expressjs.com/)"), and
 [Vite](https://vitejs.dev) as the "bundler" for the frontend.
 
 ## Run
+
 1. Install [Node](https://nodejs.org)
 1. Clone this repo
 1. Open a terminal and `cd` into the clone's root
@@ -27,9 +28,11 @@ backend (Fastify is "the new [Express](https://expressjs.com/)"), and
 Browse to http://localhost:3000 and see that it worked.
 
 ## Vite server
+
 If you're going to make changes to the JavaScript project in the `vite`
 derictory, you can avoid having to rebuild it every time, by starting the Vite
 development server:
+
 1. Open another terminal (keep Fastify running on port 3000 in the existing
    terminal)
 1. `cd` to the `vite` folder
@@ -40,6 +43,7 @@ reload" everything you change within the vite directory. Note that the Fastify
 server also restarts on every change of a file in the repo.
 
 ## Demo
+
 To demonstrate the setup, the app implements (not more than) a Register and
 Login sequence. Anyone can sign up by submitting their email address, which is
 stored in a database. Subsequently, an email is sent to that address, with a
@@ -53,6 +57,7 @@ https://fastify-htmxample.azurewebsites.net/. (It's hosted for free; it might
 take a minute to spin up for you)
 
 ## Configure
+
 To complete the intended functionality of the demo, you'd need the connection
 details of an email box. Open `app.js` and modify the configuration of the
 [fastify-mailer](https://github.com/coopflow/fastify-mailer) plugin. You can
@@ -79,6 +84,7 @@ in a new window), the complete HTML document is fetched, with the content
 matching the URL.
 
 ## JavaScript
+
 Should you navigate the site from a non-JavaScript environment, it would largely
 still work. Any machine that speaks HTTP can use it. In this sense, the site
 effectively behaves as a data API to the application's resources, using HTML as
@@ -89,8 +95,10 @@ them. This is what's cool about hypermedia and
 [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).
 
 ## Tools
+
 Apart from HTMX, Hyperscript, Fastify and Vite, the main packages that make this
 setup work, are:
+
 1. [fastify-htmx](https://github.com/wscherphof/fastify-htmx), a Fastify plugin
    that arranges for:
    1. Serving the Vite build.
@@ -100,6 +108,7 @@ setup work, are:
       [decorators](https://www.fastify.io/docs/latest/Reference/Decorators/).
 1. [dev-htmx](https://github.com/wscherphof/dev-htmx), the frontend complement
    of fastify-htmx, to:
+
    1. Enable HTMX and Hyperscript.
    1. Direct Ajax requests to the backend server while the page is served by the
       frontend dev server.
@@ -111,6 +120,7 @@ setup work, are:
    how to `import` things.
 
 ### Template engine
+
 We use [point-of-view](https://github.com/fastify/point-of-view) to load the
 [pug](https://pugjs.org) engine to dynamically render parametrised HTML. But
 again: you're free to make different choices.
@@ -128,9 +138,10 @@ rendering either the partial content, requested by HTMX, or the full HTML,
 including the surrounding app content.
 
 ## New project
+
 To create a new project like this repo, take the following steps:
-1. Install [fastify-cli](https://github.com/fastify/fastify-cli): `npm install
-   fastify-cli --global`
+
+1. Install [fastify-cli](https://github.com/fastify/fastify-cli): `npm install fastify-cli --global`
 1. `fastify generate <yourapp>`
 1. `cd <yourapp>`
 1. `npm install`
@@ -158,12 +169,14 @@ To create a new project like this repo, take the following steps:
    http://localhost:3001
 
 ## To Do
-1. Add tests.
+
+1. Add tests and remove `--no-check-coverage` from package.json.
 1. Have the GUI handle HTTP error codes 4xx/5xx.
 1. Please file a GitHub issue should you have comments, find bugs, or request
    new features.
 
 # Getting Started with Fastify-CLI [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
+
 This project was bootstrapped with Fastify-CLI.
 
 ## Available Scripts

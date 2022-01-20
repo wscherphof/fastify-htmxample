@@ -1,16 +1,16 @@
-'use strict'
+"use strict";
 
-const { test } = require('tap')
-const { build } = require('../helper')
+const { test } = require("tap");
+const { build } = require("../helper");
 
-test('default root route', async (t) => {
-  const app = build(t)
+test("default root route", async (t) => {
+  const app = build(t);
 
   const res = await app.inject({
-    url: '/'
-  })
-  t.same(res.payload, res.payload)
-})
+    url: "/",
+  });
+  t.same(res.payload, res.payload);
+});
 
 // inject callback style:
 //
