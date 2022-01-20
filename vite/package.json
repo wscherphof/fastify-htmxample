@@ -13,6 +13,6 @@
     "vite": "^2.7.12"
   },
   "dependencies": {
-    "dev-htmx": "^0.7.2"
+    "dev-htmx": "^0.8.0"
   }
 }

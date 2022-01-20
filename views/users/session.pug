@@ -1,15 +1,13 @@
 extends /../views/app
 block main
-    include /pug-material-design/textField
-    include /pug-material-design/button
+  include /pug-material-design/textField
+  include /pug-material-design/button
 
-    +post('/users/session')
-        p: +filledTextField('email', 'email', 'email')
-        p: +filledTextField('password', 'password', 'password')
-        p
-            +textButton('new password')(
-                form='change'
-            )
-            | 
-            +raisedButton('sign in')
-    +get('/users/password/change', 'main', true)#change
+  +post("/users/session")
+    p: +filledTextField("email", "email", "email")
+    p: +filledTextField("password", "password", "password")
+    .p
+      +textButton("new password")(form="change")
+      | &nbsp;
+      +raisedButton("sign in")
+  +get("/users/password/change", "main", true)#change

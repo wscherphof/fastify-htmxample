@@ -47,10 +47,11 @@
     "pug-material-design": "^0.1.7"
   },
   "devDependencies": {
-    "husky": "^7.0.0",
+    "@prettier/plugin-pug": "^1.19.2",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
-    "prettier": "2.5.1",
+    "husky": "^7.0.0",
+    "prettier": "^2.5.1",
     "stylelint": "^14.2.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^24.0.0",
