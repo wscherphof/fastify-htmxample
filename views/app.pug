@@ -29,6 +29,13 @@ mixin delete(action, target, push)
     +form('DELETE', action, target, push)&attributes(attributes)
         block
 
+noscript
+    //- use the .script class as the opposite of the noscript element
+    style.
+        .script {
+            display: none;
+        }
+
 //- pug-material design automatically provides the request object
 //- request.htmx is from https://github.com/wscherphof/fastify-htmx
 if request.htmx
