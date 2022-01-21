@@ -175,6 +175,10 @@ To create a new project like this repo, take the following steps:
 1. Please file a GitHub issue should you have comments, find bugs, or request
    new features.
 
+## Credits
+
+Kudos to the fine people on [HTMX's Discord](https://htmx.org/discord).
+
 # Getting Started with Fastify-CLI [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
 
 This project was bootstrapped with Fastify-CLI.
