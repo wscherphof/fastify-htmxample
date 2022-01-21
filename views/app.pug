@@ -24,19 +24,19 @@ mixin form(_method, action, target, push)
     block
 
 mixin get(action, target, push)
-  +form("GET", action, target, push)&attributes(attributes)
+  +form('GET', action, target, push)&attributes(attributes)
     block
 
 mixin put(action, target, push)
-  +form("PUT", action, target, push)&attributes(attributes)
+  +form('PUT', action, target, push)&attributes(attributes)
     block
 
 mixin post(action, target, push)
-  +form("POST", action, target, push)&attributes(attributes)
+  +form('POST', action, target, push)&attributes(attributes)
     block
 
 mixin delete(action, target, push)
-  +form("DELETE", action, target, push)&attributes(attributes)
+  +form('DELETE', action, target, push)&attributes(attributes)
     block
 
 noscript
@@ -59,29 +59,29 @@ else
   //- to make it work without JavaScript as well
   #model(hx-boost='true')
     nav
-      +get("/", "#app", true)
-        +textButton("home")
+      +get('/', '#app', true)
+        +textButton('home')
       | &nbsp;
       //- request.auth is from
       //- https://github.com/wscherphof/fastify-cookie-auth
       if request.auth
-        +get("/secret", "main", true)
+        +get('/secret', 'main', true)
           //- _hyperscript
-          +textButton("show secret")(
+          +textButton('show secret')(
             _=`
                 on showSecret from #model add @disabled
                 on hideSecret from #model remove @disabled
             `
           )
         | &nbsp;
-        +delete("users/session")
-          +textButton("logout")
+        +delete('users/session')
+          +textButton('logout')
       else
-        +get("/users/post", "main", true)
-          +textButton("register")
+        +get('/users/post', 'main', true)
+          +textButton('register')
         | &nbsp;
-        +get("/users/session", "main", true)
-          +textButton("login")
+        +get('/users/session', 'main', true)
+          +textButton('login')
       hr
     aside
     header
@@ -90,5 +90,5 @@ else
       //- specific URLs
       block main
         if request.auth
-          p Welcome #{ request.auth.email.split("@")[0] }
+          p Welcome #{ request.auth.email.split('@')[0] }
     footer

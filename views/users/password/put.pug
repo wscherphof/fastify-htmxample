@@ -3,9 +3,9 @@ block main
   include /pug-material-design/textField
   include /pug-material-design/button
 
-  +put("/users/password")
+  +put('/users/password')
     +hidden({ token })
-    p: +filledTextField("email", "email", "email", email)(disabled)
-    p: +filledTextField("password", "password", "password")
-    p: +filledTextField("password2", "confirm password", "password")
-    p: +raisedButton("save")
+    p: +filledTextField('email', 'email', 'email', email)(disabled)
+    p: +filledTextField('password', 'password', 'password')
+    p: +filledTextField('password2', 'confirm password', 'password')
+    p: +raisedButton('save')

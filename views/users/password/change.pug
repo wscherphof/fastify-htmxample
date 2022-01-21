@@ -3,6 +3,6 @@ block main
   include /pug-material-design/textField
   include /pug-material-design/button
 
-  +post("/users/password/change", "main")
-    p: +filledTextField("email", "email", "email")
-    p: +raisedButton("send")
+  +post('/users/password/change', 'main')
+    p: +filledTextField('email', 'email', 'email')
+    p: +raisedButton('send')
