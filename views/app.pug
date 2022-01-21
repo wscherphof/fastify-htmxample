@@ -6,13 +6,13 @@ mixin hidden(name, value)
       value = object[key]
       name = key
     }
-  input(type="hidden", name=name, value=value)
+  input(type='hidden', name=name, value=value)
 
 mixin form(_method, action, target, push)
-  - methodOverride = _method != "GET" && _method != "POST";
-  - push = push ? "true" : false;
+  - methodOverride = _method != 'GET' && _method != 'POST';
+  - push = push ? 'true' : false;
   form(
-    method=methodOverride ? "POST" : _method,
+    method=methodOverride ? 'POST' : _method,
     action=action,
     hx-target=target,
     hx-push-url=push
@@ -57,7 +57,7 @@ else
   include /pug-material-design/button
   //- use https://htmx.org/attributes/hx-boost/ (and forms around the buttons)
   //- to make it work without JavaScript as well
-  #model(hx-boost="true")
+  #model(hx-boost='true')
     nav
       +get("/", "#app", true)
         +textButton("home")

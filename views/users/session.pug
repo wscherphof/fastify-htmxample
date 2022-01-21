@@ -7,7 +7,7 @@ block main
     p: +filledTextField("email", "email", "email")
     p: +filledTextField("password", "password", "password")
     .p
-      +textButton("new password")(form="change")
+      +textButton("new password")(form='change')
       | &nbsp;
       +raisedButton("sign in")
   +get("/users/password/change", "main", true)#change
