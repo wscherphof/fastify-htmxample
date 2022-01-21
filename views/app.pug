@@ -1,8 +1,18 @@
-mixin form(method, action, target, push)
-  - methodOverride = method != "GET" && method != "POST";
+mixin hidden(name, value)
+  -
+    if (value === undefined) {
+      const object = name
+      const key = Object.keys(object)[0]
+      value = object[key]
+      name = key
+    }
+  input(type="hidden", name=name, value=value)
+
+mixin form(_method, action, target, push)
+  - methodOverride = _method != "GET" && _method != "POST";
   - push = push ? "true" : false;
   form(
-    method=methodOverride ? "POST" : method,
+    method=methodOverride ? "POST" : _method,
     action=action,
     hx-target=target,
     hx-push-url=push
@@ -10,7 +20,7 @@ mixin form(method, action, target, push)
     if methodOverride
       //- _method is from
       //- https://www.npmjs.com/package/fastify-method-override
-      input(type="hidden", name="_method", value=method)
+      +hidden({ _method })
     block
 
 mixin get(action, target, push)
