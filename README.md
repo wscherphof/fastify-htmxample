@@ -129,8 +129,7 @@ From pug, we use
 [pug-material-design](https://github.com/wscherphof/pug-material-design) (still
 far from complete) to render [Material Design
 Components](https://material.io/develop/web). It's also imported client-side, to
-instantiate the JavaScript objects needed. There, it makes some special
-arrangements to make sure this also happens on the HTMX partial content loads.
+instantiate the JavaScript objects needed.
 
 The `.pug` files are in the `views` directory. You'll notice the use of pug's
 [inheritance](https://pugjs.org/language/inheritance.html) mechanism for
