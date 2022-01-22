@@ -43,7 +43,7 @@
     "fastify-rate-limit": "^5.7.0",
     "fastify-sensible": "^3.1.0",
     "nodemailer": "^6.7.2",
-    "pug-material-design": "^0.1.10"
+    "pug-material-design": "^0.1.11"
   },
   "devDependencies": {
     "@prettier/plugin-pug": "^1.19.2",
