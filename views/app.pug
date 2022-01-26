@@ -46,49 +46,50 @@ noscript
       display: none;
     }
 
-//- pug-material design automatically provides the request object
-//- request.htmx is from https://github.com/wscherphof/fastify-htmx
-if request.htmx
-  //- for htmx-requests, skip the surrounding app, so that only the requested
-  //- partial content is rendered; see
-  //- https://pugjs.org/language/inheritance.html
-  block main
-else
-  include /pug-material-design/button
-  //- use https://htmx.org/attributes/hx-boost/ (and forms around the buttons)
-  //- to make it work without JavaScript as well
-  #model(hx-boost='true')
-    nav
-      +get('/', '#app', true)
-        +textButton('home')
-      | &nbsp;
-      //- request.auth is from
-      //- https://github.com/wscherphof/fastify-cookie-auth
-      if request.auth
-        +get('/secret', 'main', true)
-          //- _hyperscript
-          +textButton('show secret')(
-            _=`
-                on showSecret from #model add @disabled
-                on hideSecret from #model remove @disabled
-            `
-          )
+include /fastify-mdc-pug/index
++mdc
+  //- https://github.com/wscherphof/fastify-mdc-pug automatically provides the
+    request object; request.htmx is from https://github.com/wscherphof/fastify-htmx
+  if request.htmx
+    //- for htmx-requests, skip the surrounding app, so that only the requested
+      partial content is rendered; see
+      https://pugjs.org/language/inheritance.html
+    block main
+  else
+    //- use https://htmx.org/attributes/hx-boost/ (and forms around the buttons)
+      to make it work without JavaScript as well
+    +mdc-typography#model(element='div', hx-boost='true')
+      nav
+        +get('/', '#app', true)
+          +mdc-button('home')
         | &nbsp;
-        +delete('users/session')
-          +textButton('logout')
-      else
-        +get('/users/post', 'main', true)
-          +textButton('register')
-        | &nbsp;
-        +get('/users/session', 'main', true)
-          +textButton('login')
-      hr
-    aside
-    header
-    main
-      //- this block is what gets replaced by the extending templates of
-      //- specific URLs
-      block main
+        //- request.auth is from
+          https://github.com/wscherphof/fastify-cookie-auth
         if request.auth
-          p Welcome #{ request.auth.email.split('@')[0] }
-    footer
+          +get('/secret', 'main', true)
+            //- _hyperscript
+            +mdc-button('show secret')(
+              _=`
+                  on showSecret from #model add @disabled
+                  on hideSecret from #model remove @disabled
+              `
+            )
+          | &nbsp;
+          +delete('users/session')
+            +mdc-button('logout')
+        else
+          +get('/users/post', 'main', true)
+            +mdc-button('register')
+          | &nbsp;
+          +get('/users/session', 'main', true)
+            +mdc-button('login')
+        hr
+      aside
+      header
+      main
+        //- this block is what gets replaced by the extending templates of
+          specific URLs
+        block main
+          if request.auth
+            p Welcome #{ request.auth.email.split('@')[0] }
+      footer

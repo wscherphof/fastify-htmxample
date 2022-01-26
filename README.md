@@ -126,10 +126,9 @@ We use [point-of-view](https://github.com/fastify/point-of-view) to load the
 again: you're free to make different choices.
 
 From pug, we use
-[pug-material-design](https://github.com/wscherphof/pug-material-design) (still
-far from complete) to render [Material Design
-Components](https://material.io/develop/web). It's also imported client-side, to
-instantiate the JavaScript objects needed.
+[fastify-mdc-pug](https://github.com/wscherphof/fastify-mdc-pug) to render
+[Material Design Components](https://material.io/develop/web). It's also
+imported client-side, to instantiate the JavaScript objects needed.
 
 The `.pug` files are in the `views` directory. You'll notice the use of pug's
 [inheritance](https://pugjs.org/language/inheritance.html) mechanism for
@@ -147,8 +146,8 @@ To create a new project like this repo, take the following steps:
 1. `npm install fastify-htmx`
 1. Edit `app.js` to register the plugin:
    `fastify.register(require('fastify-htmx'))`
-1. Optionally `npm install pug-material-design` and
-   `fastify.register(require('pug-material-design/fastify'))`
+1. Optionally `npm install fastify-mdc-pug` and
+   `fastify.register(require('fastify-mdc-pug/plugin'))`
 1. `npm init vite@latest vite` - choose vanilla or vanilla-ts (for TypeScript)
 1. `cd vite`
 1. `npm install`
@@ -157,7 +156,7 @@ To create a new project like this repo, take the following steps:
    1. Delete the lines setting `document.querySelector('#app').innerHTML`
    1. Add the following:
       1. `import devHtmx from 'dev-htmx'`
-      1. Optionally `import 'pug-material-design'`
+      1. Optionally `import 'fastify-mdc-pug'`
       1. `devHtmx.init()`
 1. `npm run build`
 1. `cd ..`

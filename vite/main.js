@@ -1,7 +1,7 @@
 import './style.css';
 import './spinner.css';
+import 'fastify-mdc-pug';
 import devHtmx from 'dev-htmx';
-import 'pug-material-design';
 
 // use default options
 devHtmx.init();

@@ -1,11 +1,25 @@
 extends /../views/app
 block main
-  include /pug-material-design/textField
-  include /pug-material-design/button
-
   +put('/users/password')
     +hidden({ token })
-    p: +filledTextField('email', 'email', 'email', email)(disabled)
-    p: +filledTextField('password', 'password', 'password')
-    p: +filledTextField('password2', 'confirm password', 'password')
-    p: +raisedButton('save')
+    p: +mdc-text-field(
+      name='email',
+      label='email',
+      type='email',
+      value=email,
+      filled,
+      disabled
+    )
+    p: +mdc-text-field(
+      name='password',
+      label='password',
+      type='password',
+      filled
+    )
+    p: +mdc-text-field(
+      name='password2',
+      label='confirm password',
+      type='password',
+      filled
+    )
+    p: +mdc-button('save')(raised)

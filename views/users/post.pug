@@ -1,8 +1,5 @@
 extends /../views/app
 block main
-  include /pug-material-design/textField
-  include /pug-material-design/button
-
   +post('/users', 'main')
-    p: +filledTextField('email', 'email', 'email')
-    p: +raisedButton('sign up')
+    p: +mdc-text-field(name='email', label='email', type='email', filled)
+    p: +mdc-button('sign up')(raised)

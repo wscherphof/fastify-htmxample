@@ -18,7 +18,7 @@ module.exports = async function (fastify, opts) {
 
   fastify.register(require('fastify-htmx'));
 
-  fastify.register(require('pug-material-design/fastify'));
+  fastify.register(require('fastify-mdc-pug/plugin'));
 
   fastify.register(require('fastify-mongodb'), {
     // force to close the mongodb connection when app stopped
