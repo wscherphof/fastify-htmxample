@@ -27,7 +27,7 @@ backend (Fastify is "the new [Express](https://expressjs.com/)"), and
 
 Browse to http://localhost:3000 and see that it worked.
 
-## Vite server
+## Vite dev server
 
 If you're going to make changes to the JavaScript project in the `vite`
 derictory, you can avoid having to rebuild it every time, by starting the Vite
