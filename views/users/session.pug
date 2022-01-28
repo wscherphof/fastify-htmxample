@@ -12,4 +12,4 @@ block main
       +mdc-button('new password')(form='change')
       | &nbsp;
       +mdc-button('sign in')(raised)
-  +get('/users/password/change', 'main', true)#change
+  +get('/users/password/change', 'main')#change(push)

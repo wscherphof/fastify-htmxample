@@ -8,35 +8,36 @@ mixin hidden(name, value)
     }
   input(type='hidden', name=name, value=value)
 
-mixin form(_method, action, target, push)
-  - methodOverride = _method != 'GET' && _method != 'POST';
-  - push = push ? 'true' : false;
+mixin form(_method, action, target)
+  -
+    const { push, ...rest } = attributes;
+    const methodOverride = _method != 'GET' && _method != 'POST';
   form(
     method=methodOverride ? 'POST' : _method,
     action=action,
     hx-target=target,
-    hx-push-url=push
-  )&attributes(attributes)
+    hx-push-url=push ? 'true' : false
+  )&attributes(rest)
     if methodOverride
       //- _method is from
       //- https://www.npmjs.com/package/fastify-method-override
       +hidden({ _method })
     block
 
-mixin get(action, target, push)
-  +form('GET', action, target, push)&attributes(attributes)
+mixin get(action, target)
+  +form('GET', action, target)&attributes(attributes)
     block
 
-mixin put(action, target, push)
-  +form('PUT', action, target, push)&attributes(attributes)
+mixin put(action, target)
+  +form('PUT', action, target)&attributes(attributes)
     block
 
-mixin post(action, target, push)
-  +form('POST', action, target, push)&attributes(attributes)
+mixin post(action, target)
+  +form('POST', action, target)&attributes(attributes)
     block
 
-mixin delete(action, target, push)
-  +form('DELETE', action, target, push)&attributes(attributes)
+mixin delete(action, target)
+  +form('DELETE', action, target)&attributes(attributes)
     block
 
 noscript
@@ -65,29 +66,30 @@ include /fastify-mdc-pug/index
     )
       nav
         +mdc-linear-progress#progress.htmx-indicator.script(indeterminate)
-        +get('/', '#app', true)
-          +mdc-button('home')
-        | &nbsp;
-        //- request.auth is from
-          https://github.com/wscherphof/fastify-cookie-auth
-        if request.auth
-          +get('/secret', 'main', true)
-            //- _hyperscript
-            +mdc-button('show secret')(
-              _=`
-                  on showSecret from #model add @disabled
-                  on hideSecret from #model remove @disabled
-              `
-            )
+        .p
+          +get('/', '#app')(push)
+            +mdc-button('home')
           | &nbsp;
-          +delete('users/session')
-            +mdc-button('logout')
-        else
-          +get('/users/post', 'main', true)
-            +mdc-button('register')
-          | &nbsp;
-          +get('/users/session', 'main', true)
-            +mdc-button('login')
+          //- request.auth is from
+            https://github.com/wscherphof/fastify-cookie-auth
+          if request.auth
+            +get('/secret', 'main')(push)
+              //- _hyperscript
+              +mdc-button('show secret')(
+                _=`
+                    on showSecret from #model add @disabled
+                    on hideSecret from #model remove @disabled
+                `
+              )
+            | &nbsp;
+            +delete('users/session')
+              +mdc-button('logout')
+          else
+            +get('/users/post', 'main')(push)
+              +mdc-button('register')
+            | &nbsp;
+            +get('/users/session', 'main')(push)
+              +mdc-button('login')
         hr
       aside
       header
