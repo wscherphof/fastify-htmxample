@@ -1,12 +1,18 @@
-mixin hidden(name, value)
-  -
-    if (value === undefined) {
-      const object = name
-      const key = Object.keys(object)[0]
-      value = object[key]
-      name = key
-    }
-  input(type='hidden', name=name, value=value)
+mixin get(action, target)
+  +form('GET', action, target)&attributes(attributes)
+    block
+
+mixin put(action, target)
+  +form('PUT', action, target)&attributes(attributes)
+    block
+
+mixin post(action, target)
+  +form('POST', action, target)&attributes(attributes)
+    block
+
+mixin delete(action, target)
+  +form('DELETE', action, target)&attributes(attributes)
+    block
 
 mixin form(_method, action, target)
   -
@@ -24,21 +30,15 @@ mixin form(_method, action, target)
       +hidden({ _method })
     block
 
-mixin get(action, target)
-  +form('GET', action, target)&attributes(attributes)
-    block
-
-mixin put(action, target)
-  +form('PUT', action, target)&attributes(attributes)
-    block
-
-mixin post(action, target)
-  +form('POST', action, target)&attributes(attributes)
-    block
-
-mixin delete(action, target)
-  +form('DELETE', action, target)&attributes(attributes)
-    block
+mixin hidden(name, value)
+  -
+    if (value === undefined) {
+      const object = name
+      const key = Object.keys(object)[0]
+      value = object[key]
+      name = key
+    }
+  input(type='hidden', name=name, value=value)
 
 noscript
   //- use the .script class as the opposite of the noscript element
