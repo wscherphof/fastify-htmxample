@@ -10,9 +10,8 @@ form {
   display: inline;
 }
 
-/* keep hidden when no JavaScript */
-.htmx-indicator {
-  opacity: 0;
+body {
+  margin: 0;
 }
 
 /* fallback for putting a div inside a p in pug */

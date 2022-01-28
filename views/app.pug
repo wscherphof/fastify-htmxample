@@ -58,8 +58,13 @@ include /fastify-mdc-pug/index
   else
     //- use https://htmx.org/attributes/hx-boost/ (and forms around the buttons)
       to make it work without JavaScript as well
-    +mdc-typography#model(element='div', hx-boost='true')
+    +mdc-typography#model(
+      element='div',
+      hx-boost='true',
+      hx-indicator='#progress'
+    )
       nav
+        +mdc-linear-progress#progress.htmx-indicator.script(indeterminate)
         +get('/', '#app', true)
           +mdc-button('home')
         | &nbsp;
