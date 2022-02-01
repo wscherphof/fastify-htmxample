@@ -1,64 +1,19 @@
-mixin get(action, target)
-  +form('GET', action, target)&attributes(attributes)
-    block
+include utils
 
-mixin put(action, target)
-  +form('PUT', action, target)&attributes(attributes)
-    block
-
-mixin post(action, target)
-  +form('POST', action, target)&attributes(attributes)
-    block
-
-mixin delete(action, target)
-  +form('DELETE', action, target)&attributes(attributes)
-    block
-
-mixin form(_method, action, target)
-  -
-    const { push, ...rest } = attributes;
-    const methodOverride = _method != 'GET' && _method != 'POST';
-  form(
-    method=methodOverride ? 'POST' : _method,
-    action=action,
-    hx-target=target,
-    hx-push-url=push ? 'true' : false
-  )&attributes(rest)
-    if methodOverride
-      //- _method is from
-        https://www.npmjs.com/package/fastify-method-override
-      +hidden({ _method })
-    block
-
-mixin hidden(name, value)
-  -
-    if (value === undefined) {
-      const object = name
-      const key = Object.keys(object)[0]
-      value = object[key]
-      name = key
-    }
-  input(type='hidden', name=name, value=value)
-
-noscript
-  //- use the .script class as the opposite of the noscript element
-  style.
-    .script {
-      display: none;
-    }
-
-include /fastify-mdc-pug/index
+//- The +mdc mixin is from fastify-mdc-pug (included in utils.pug):
+  https://github.com/wscherphof/fastify-mdc-pug#backend-viewsapppug
 +mdc
-  //- https://github.com/wscherphof/fastify-mdc-pug automatically provides the
-    request object; request.htmx is from https://github.com/wscherphof/fastify-htmx
+  //- fastify-mdc-pug automatically provides the request object; request.htmx is
+    from fastify-htmx: https://github.com/wscherphof/fastify-htmx
   if request.htmx
     //- for htmx-requests, skip the surrounding app, so that only the requested
       partial content is rendered; see
       https://pugjs.org/language/inheritance.html
     block main
   else
-    //- use https://htmx.org/attributes/hx-boost/ (and forms around the buttons)
-      to make it work without JavaScript as well
+    //- use https://htmx.org/attributes/hx-boost/ (and forms around the buttons,
+      using the get/put/post/delete mixins from utils.pug) to make it work
+      without JavaScript as well
     +mdc-typography#model(
       element='div',
       hx-boost='true',
@@ -70,7 +25,7 @@ include /fastify-mdc-pug/index
           +get('/', '#app')(push)
             +mdc-button('home')
           | &nbsp;
-          //- request.auth is from
+          //- request.auth is from fastify-cookie-auth:
             https://github.com/wscherphof/fastify-cookie-auth
           if request.auth
             +get('/secret', 'main')(push)
